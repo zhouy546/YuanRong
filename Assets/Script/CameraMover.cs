@@ -46,15 +46,19 @@ public class CameraMover : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.UpArrow))//前进
             {
                 CurrentID++;
-                if (!max)
-                    tragetPos = new Vector3(tragetPos.x, tragetPos.y, -30 +currentID* ValueSheet.NodeDistance);
+                if (!max) {
+                    tragetPos = new Vector3(tragetPos.x, tragetPos.y, -30 + currentID * ValueSheet.NodeDistance);
+                    BottomBarCtr.instance.ChangeDot(CurrentID);
+                }
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))//后退
             {
                 CurrentID--;
 
-                if (!min)
+                if (!min) {
                     tragetPos = new Vector3(tragetPos.x, tragetPos.y, -30 + currentID * ValueSheet.NodeDistance);
+                    BottomBarCtr.instance.ChangeDot(CurrentID);
+                }
             }
 
             else if (Input.GetKeyDown(KeyCode.A))//显示单个
