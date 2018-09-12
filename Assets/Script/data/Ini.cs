@@ -9,6 +9,7 @@ public class Ini : MonoBehaviour {
     private CameraMover cameraMover;
 
     private List<Sprite> MainUIsprites = new List<Sprite>();
+    private List<Sprite> DescriptionBG = new List<Sprite>();
     // Use this for initialization
     void Start () {
 
@@ -39,18 +40,30 @@ public class Ini : MonoBehaviour {
         for (int i = 0; i < CreateUI.NodeObject.Count; i++)
         {
             NodeCtr nodeCtr = CreateUI.NodeObject[i].GetComponent<NodeCtr>();
-            nodeCtr.initialization(MainUIsprites[i]);
+            nodeCtr.initialization(MainUIsprites[i], DescriptionBG[i]);
         }
     }
 
     IEnumerator ReadAssetImage() {
-        string path = "/UI/MainPage/";
-        yield return GetSpriteListFromStreamAsset(path,"png", MainUIsprites);
+        yield return StartCoroutine(ReadMainUIsprites());
+
+       yield return StartCoroutine(ReadDescriptionBG());
+        Debug.Log(DescriptionBG.Count);
+
     }
 
+    IEnumerator ReadDescriptionBG() {
+        string path = "/UI/DescriptionBG/";
+        yield return GetSpriteListFromStreamAsset(path, "png", DescriptionBG);
+    }
 
+    IEnumerator ReadMainUIsprites()
+    {
+        string path = "/UI/MainPage/";
+        yield return GetSpriteListFromStreamAsset(path, "png", MainUIsprites);
+    }
 
-    IEnumerator GetSpriteListFromStreamAsset(string path, string suffix, List<Sprite> sprites)
+        IEnumerator GetSpriteListFromStreamAsset(string path, string suffix, List<Sprite> sprites)
     {
         List<Texture> texturesList = new List<Texture>();
         string streamingPath = Application.streamingAssetsPath + path;

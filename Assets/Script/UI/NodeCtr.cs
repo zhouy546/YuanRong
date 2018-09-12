@@ -10,10 +10,12 @@ public class NodeCtr : MonoBehaviour {
 
     public NImage nImageMainImage;
 
+    public NImage nImageDescriptionImage;
+
     public List<GameObject> DescriptionUI = new List<GameObject>();
 
     public Transform cameraSetTrans;
-    [HideInInspector]
+
     public Video_DescriptionCtr descriptionCtr;
         
     // Use this for initialization
@@ -21,11 +23,11 @@ public class NodeCtr : MonoBehaviour {
 
     }
 
-    public void initialization(Sprite sprite) {
+    public void initialization(Sprite Mainsprite,Sprite BGDescriptionImage) {
         nImageMainImage.initialization();
-
-        SetupMainImage(sprite);
-
+        nImageDescriptionImage.initialization();
+        SetupMainImage(Mainsprite);
+        SetupUpBgImage(BGDescriptionImage);
 
         foreach (var item in DescriptionUI)
         {
@@ -49,6 +51,10 @@ public class NodeCtr : MonoBehaviour {
 
     void SetupMainImage(Sprite sprite) {
         nImageMainImage.image.sprite = sprite;
+    }
+
+    void SetupUpBgImage(Sprite sprite) {
+        nImageDescriptionImage.image.sprite = sprite;
     }
 
     public void SetupDescruptionUI() {
