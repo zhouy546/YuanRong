@@ -9,12 +9,24 @@ public class Video_DescriptionCtrDefault : Video_DescriptionCtr {
 		
 	}
 
-   public new void initialization() {
+   public override void initialization() {
         base.initialization();
+        foreach (var item in nImagesDescription)
+        {
+            item.initialization();
+        }
+       
     }
 
-    // Update is called once per frame
-    void Update () {
+    public override void setupImage(List<Sprite> sprites) {
 
+        for (int i = 0; i < nImagesDescription.Count; i++)
+        {
+            Debug.Log(nImagesDescription.Count);
+            Debug.Log(sprites.Count);
+            Debug.Log(i);
+
+            nImagesDescription[i].image.sprite = sprites[i];
+        } 
     }
 }

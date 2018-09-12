@@ -12,6 +12,7 @@ public class Ini : MonoBehaviour {
 
     private List<Sprite> MainUIsprites = new List<Sprite>();
     private List<Sprite> DescriptionBG = new List<Sprite>();
+
     // Use this for initialization
     void Start () {
 
@@ -55,9 +56,24 @@ public class Ini : MonoBehaviour {
     IEnumerator ReadAssetImage() {
         yield return StartCoroutine(ReadMainUIsprites());
 
-       yield return StartCoroutine(ReadDescriptionBG());
-        Debug.Log(DescriptionBG.Count);
+        yield return StartCoroutine(ReadDescriptionBG());
 
+        yield return StartCoroutine(ReadDescription());
+    }
+
+
+    IEnumerator ReadDescription() {
+        for (int i = 0; i < ReadJson.NodeList.Count; i++)
+        {
+            List<Sprite> sp = new List<Sprite>();
+            string path = "/UI/Description/"+i.ToString()+"/";
+           // Debug.Log(path);
+            yield return GetSpriteListFromStreamAsset(path, "jpg", sp);
+
+            ValueSheet.DescriptionkeyValuePairs.Add(i, sp);
+        }
+
+      //  Debug.Log(ValueSheet.DescriptionkeyValuePairs.Count);
     }
 
     IEnumerator ReadDescriptionBG() {

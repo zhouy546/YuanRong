@@ -10,7 +10,9 @@ public class NodeCtr : MonoBehaviour {
 
     public NImage nImageMainImage;
 
-    public NImage nImageDescriptionImage;
+    public NImage nImageDescriptionBGImage;
+
+    public List<Sprite> nImagesDescription = new List<Sprite>();
 
     public List<GameObject> DescriptionUI = new List<GameObject>();
 
@@ -25,7 +27,7 @@ public class NodeCtr : MonoBehaviour {
 
     public void initialization(Sprite Mainsprite,Sprite BGDescriptionImage) {
         nImageMainImage.initialization();
-        nImageDescriptionImage.initialization();
+        nImageDescriptionBGImage.initialization();
         SetupMainImage(Mainsprite);
         SetupUpBgImage(BGDescriptionImage);
 
@@ -37,15 +39,28 @@ public class NodeCtr : MonoBehaviour {
         switch (uIStyle)
         {
             case UIStyle.defalue:
-                descriptionCtr = DescriptionUI[0].GetComponent<Video_DescriptionCtrDefault>();
+                descriptionCtr =DescriptionUI[0].GetComponent<Video_DescriptionCtrDefault>();
                 break;
             case UIStyle.Style01:
                 descriptionCtr = DescriptionUI[1].GetComponent<Video_DescriptionStyle01>();
+                
                 break;
             default:
                 break;
         }
 
+        descriptionCtr.initialization();
+
+        SetupDescriptionImage();
+
+    }
+
+    private void SetupDescriptionImage()
+    {
+        nImagesDescription= ValueSheet.DescriptionkeyValuePairs[int.Parse(this.name)];
+
+       // Debug.Log(nImagesDescription.Count);
+        descriptionCtr.setupImage(nImagesDescription);
     }
 
 
@@ -54,7 +69,7 @@ public class NodeCtr : MonoBehaviour {
     }
 
     void SetupUpBgImage(Sprite sprite) {
-        nImageDescriptionImage.image.sprite = sprite;
+        nImageDescriptionBGImage.image.sprite = sprite;
     }
 
     public void SetupDescruptionUI() {
@@ -102,11 +117,11 @@ public class NodeCtr : MonoBehaviour {
 
 
     public void showDescriptionBGImage() {
-        nImageDescriptionImage.ShowAll();
+        nImageDescriptionBGImage.ShowAll();
     }
 
     public void hideDescriptionBGImage()
     {
-        nImageDescriptionImage.HideAll();
+        nImageDescriptionBGImage.HideAll();
     }
 }

@@ -4,14 +4,26 @@ using UnityEngine;
 
 public class Video_DescriptionStyle01 : Video_DescriptionCtr
 {
+   
+    void Start()
+    {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
+
+    public new void initialization()
+    {
+        base.initialization();
+        foreach (var item in nImagesDescription)
+        {
+            item.initialization();
+        }
+    }
+
+    public override void setupImage(List<Sprite> sprites)
+    {
+        for (int i = 0; i < nImagesDescription.Count; i++)
+        {
+          //  nImagesDescription[i].image.sprite = sprites[i];
+        }
+    }
 }
