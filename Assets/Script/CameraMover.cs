@@ -67,12 +67,12 @@ public class CameraMover : MonoBehaviour {
                 if (currentID % 2 == 0)//偶数向左奇数向右
                 {
 
-                    tragetRotation = new Vector3(0, 34.1f, 0);
+                    tragetRotation = new Vector3(0, -34.1f, 0);
                     RotateCamera(tragetRotation);
                 }
                 else
                 {
-                    tragetRotation = new Vector3(0, -34.1f, 0);
+                    tragetRotation = new Vector3(0, 34.1f, 0);
                     RotateCamera(tragetRotation);
                 }
                 ShowDescription();

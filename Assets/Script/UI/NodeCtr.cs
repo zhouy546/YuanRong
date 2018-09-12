@@ -66,11 +66,13 @@ public class NodeCtr : MonoBehaviour {
 
     public void ShowDescription() {
         descriptionCtr.TriggerAnimation();
+        showDescriptionBGImage();
     }
 
 
     public void HideDescription() {
         descriptionCtr.TriggerAnimation();
+        hideDescriptionBGImage();
     }
 
 
@@ -81,5 +83,15 @@ public class NodeCtr : MonoBehaviour {
     public void ShowMainPicture()
     {
         nImageMainImage.ShowAll(2);
+    }
+
+
+    public void showDescriptionBGImage() {
+        nImageDescriptionImage.ShowAll();
+    }
+
+    public void hideDescriptionBGImage()
+    {
+        nImageDescriptionImage.HideAll();
     }
 }

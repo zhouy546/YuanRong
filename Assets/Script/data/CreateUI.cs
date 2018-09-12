@@ -14,11 +14,11 @@ public class CreateUI : MonoBehaviour {
             if (i % 2 == 0)
             {
                 Vector3 pos = new Vector3(-30,16.3f, i * ValueSheet.NodeDistance);
-                GameObject g = Instantiate(NodeR, pos,Quaternion.identity);
+                GameObject g = Instantiate(NodeL, pos,Quaternion.identity);
                 g.name = i.ToString();
                 ValueSheet.nodeCtrs.Add(g.GetComponent<NodeCtr>());
                 NodeObject.Add(g);
-                if (i == 0)
+                if (i == 10)
                 {
                  
                     g.GetComponent<NodeCtr>().uIStyle = NodeCtr.UIStyle.Style01;
@@ -27,7 +27,7 @@ public class CreateUI : MonoBehaviour {
             else {
                 
                 Vector3 pos = new Vector3(30, 16.3f, i * ValueSheet.NodeDistance);
-                GameObject g = Instantiate(NodeL, pos, Quaternion.identity);
+                GameObject g = Instantiate(NodeR, pos, Quaternion.identity);
                 ValueSheet.nodeCtrs.Add(g.GetComponent<NodeCtr>());
                 g.name = i.ToString();
                 NodeObject.Add(g);
