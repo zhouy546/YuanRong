@@ -1,0 +1,79 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class NodeCtr : MonoBehaviour {
+
+    public enum UIStyle { defalue,Style01}
+
+    public UIStyle uIStyle;
+
+    public NImage nImageMainImage;
+
+    public List<GameObject> DescriptionUI = new List<GameObject>();
+
+    public Transform cameraSetTrans;
+    [HideInInspector]
+    public Video_DescriptionCtr descriptionCtr;
+        
+    // Use this for initialization
+    void Start () {
+
+    }
+
+    public void initialization(Sprite sprite) {
+        nImageMainImage.initialization();
+
+        SetupMainImage(sprite);
+
+
+        foreach (var item in DescriptionUI)
+        {
+            item.GetComponent<Video_DescriptionCtr>().initialization();
+        }
+
+        switch (uIStyle)
+        {
+            case UIStyle.defalue:
+                descriptionCtr = DescriptionUI[0].GetComponent<Video_DescriptionCtrDefault>();
+                break;
+            case UIStyle.Style01:
+                descriptionCtr = DescriptionUI[1].GetComponent<Video_DescriptionStyle01>();
+                break;
+            default:
+                break;
+        }
+
+    }
+
+
+    void SetupMainImage(Sprite sprite) {
+        nImageMainImage.image.sprite = sprite;
+    }
+
+    public void SetupDescruptionUI() {
+        //switch (switch_on)
+        //{
+        //    default:
+        //}
+    }
+
+    public void ShowDescription() {
+        descriptionCtr.TriggerAnimation();
+    }
+
+
+    public void HideDescription() {
+        descriptionCtr.TriggerAnimation();
+    }
+
+
+    public void HideMainPicture() {
+        nImageMainImage.HideAll(.2f);
+    }
+
+    public void ShowMainPicture()
+    {
+        nImageMainImage.ShowAll(2);
+    }
+}
