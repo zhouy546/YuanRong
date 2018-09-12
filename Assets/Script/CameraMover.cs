@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMover : MonoBehaviour {
-
+    public static CameraMover instance;
     
     bool max, min=true;
 
@@ -33,6 +33,10 @@ public class CameraMover : MonoBehaviour {
     private float easeingValue = 0.05f;
     private float RoteaseingValue = 0.005f;
     public void initialization() {
+        if (instance == null) {
+            instance = this;
+        }
+
     }
 
     // Update is called once per frame

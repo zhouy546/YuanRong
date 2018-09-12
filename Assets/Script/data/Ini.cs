@@ -7,6 +7,8 @@ public class Ini : MonoBehaviour {
     private CreateUI createUI;
     private ReadJson readJson;
     private CameraMover cameraMover;
+    private VideoCtr videoCtr;
+
 
     private List<Sprite> MainUIsprites = new List<Sprite>();
     private List<Sprite> DescriptionBG = new List<Sprite>();
@@ -23,10 +25,16 @@ public class Ini : MonoBehaviour {
         createUI = FindObjectOfType<CreateUI>();
 
         cameraMover = FindObjectOfType<CameraMover>();
+
+        videoCtr = FindObjectOfType<VideoCtr>();
+
+
         //------ini--------------//
         yield return StartCoroutine(readJson.initialization());
 
         yield return StartCoroutine(ReadAssetImage());
+
+        videoCtr.initialization();
 
         createUI.initialization();
 

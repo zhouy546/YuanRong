@@ -64,15 +64,30 @@ public class NodeCtr : MonoBehaviour {
         //}
     }
 
+
+    public void PlayVideo() {
+
+      string path =   ReadJson.NodeList[CameraMover.instance.CurrentID].VideoName;
+        VideoCtr.instance.LoadVideoAndPlay(path);
+    }
+
+    public void StopVideo() {
+        VideoCtr.instance.stopVideo();
+    }
+
     public void ShowDescription() {
+
         descriptionCtr.TriggerAnimation();
         showDescriptionBGImage();
+        PlayVideo();
     }
 
 
     public void HideDescription() {
         descriptionCtr.TriggerAnimation();
         hideDescriptionBGImage();
+
+        StopVideo();
     }
 
 

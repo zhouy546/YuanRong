@@ -81,7 +81,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1322410500679352
 GameObject:
   m_ObjectHideFlags: 1
@@ -614,6 +614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95747284550613610}
+  displayUGUI: {fileID: 0}
 --- !u!114 &114776029108890508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -653,6 +654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  displayUGUI: {fileID: 0}
 --- !u!114 &114897353863553346
 MonoBehaviour:
   m_ObjectHideFlags: 1
