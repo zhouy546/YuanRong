@@ -9,6 +9,8 @@ public class Ini : MonoBehaviour {
     private CameraMover cameraMover;
     private VideoCtr videoCtr;
     private BottomBarCtr bottomBarCtr;
+    private CanvasMangager canvasMangager;
+    private SoundMangager soundMangager;
 
     private List<Sprite> MainUIsprites = new List<Sprite>();
     private List<Sprite> DescriptionBG = new List<Sprite>();
@@ -21,6 +23,8 @@ public class Ini : MonoBehaviour {
 
     IEnumerator initialization() {
         //-----------find object-------//
+        Screen.SetResolution(3360, 1200, false);
+
         readJson = FindObjectOfType<ReadJson>();
 
         createUI = FindObjectOfType<CreateUI>();
@@ -31,20 +35,29 @@ public class Ini : MonoBehaviour {
 
         bottomBarCtr = FindObjectOfType<BottomBarCtr>();
 
+        canvasMangager = FindObjectOfType<CanvasMangager>();
+
+        soundMangager = FindObjectOfType<SoundMangager>();
         //------ini--------------//
         yield return StartCoroutine(readJson.initialization());
 
         yield return StartCoroutine(ReadAssetImage());
 
+        soundMangager.initialization();
+        
         videoCtr.initialization();
+
+        VideoCtr.instance.PlayFullScreenVideoPlayer(ValueSheet.screenProtect);
 
         createUI.initialization();
 
-        cameraMover.initialization();
+        StartCoroutine( cameraMover.initialization());
 
         bottomBarCtr.initialization();
 
         initializationMainUI();
+
+        canvasMangager.initialization();
     }
 
     void initializationMainUI() {

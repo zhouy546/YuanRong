@@ -22,9 +22,9 @@ public class Video_DescriptionCtrDefault : Video_DescriptionCtr {
 
         for (int i = 0; i < nImagesDescription.Count; i++)
         {
-            Debug.Log(nImagesDescription.Count);
-            Debug.Log(sprites.Count);
-            Debug.Log(i);
+           // Debug.Log(nImagesDescription.Count);
+           // Debug.Log(sprites.Count);
+           // Debug.Log(i);
 
             nImagesDescription[i].image.sprite = sprites[i];
         } 

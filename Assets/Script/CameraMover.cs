@@ -1,119 +1,200 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMover : MonoBehaviour {
     public static CameraMover instance;
-    
-    bool max, min=true;
 
+
+    private int perviouseID = 0;
     private int currentID = 0;
     public int CurrentID {
         get { return currentID; }
         set {
-            if (value > ReadJson.NodeList.Count)
-            {
-                max = true;
-                return;
-            }
-            else if(value <0) {
-                min = true;
-                return;
+
+            
+            currentID = value;
+
+            if (ValueSheet.InOcean) {
+             
+                tragetPos = new Vector3(0, 15.3f, -30 + currentID * ValueSheet.NodeDistance);
+
+                if (ValueSheet.IsInMainMenu)
+                {
+                    StartCoroutine(MenuToDes());
+                }
+                else
+                {
+
+                    StartCoroutine(DesToDes());
+                }
+
+                BottomBarCtr.instance.ChangeDot(CurrentID);
+
+                CanvasMangager.instance.Building.SetActive(false);
             }
 
-            currentID = value;
-            max = false;
-            min = false;
         }
     }
 
+
+    public void GoingInTheWell()
+    {
+      StartCoroutine(MoveTo(new Vector3(65f, 33.3f, 400f), 0f));
+
+        this.transform.rotation = Quaternion.Euler(0, 90, 0);
+
+    }
+
+    public void LookWellLeft() {
+        LeanTween.rotateY(this.gameObject, 66f, .5f);
+    }
+
+    public void LookWellRight()
+    {
+        LeanTween.rotateY(this.gameObject, 123f, .5f);
+    }
+
+    public void LookWellMid()
+    {
+        LeanTween.rotateY(this.gameObject, 90f, .5f);
+    }
+
+
+    IEnumerator DesToDes() {
+        SoundMangager.instance.GoThrough();
+        yield return StartCoroutine(ToMenu());
+
+        yield return StartCoroutine(ToPosition());
+        yield return StartCoroutine(GoingIn());
+        perviouseID = currentID;
+        SoundMangager.instance.StopSound();
+
+    }
+
+
+
+
+    IEnumerator ToMenu() {
+        yield return StartCoroutine(MoveTo(perviousPos,.5f));
+        Debug.Log(perviouseID.ToString());
+        HideDescription(perviouseID);
+        ShowMainPicture();
+        RotateCamera(Vector3.zero);
+        yield return new WaitForSeconds(1f);
+        //perviouseID = currentID;
+    }
+
+    IEnumerator MenuToDes() {
+        SoundMangager.instance.GoThrough();
+        yield return StartCoroutine(ToPosition());
+        yield return StartCoroutine(GoingIn());
+        perviouseID = currentID;
+        SoundMangager.instance.StopSound();
+    }
+
+
+    IEnumerator GoingIn() {
+        ShowDescription(currentID);
+        HideMainPicture();
+        yield return StartCoroutine(MoveInPosition());
+    }
+
+    IEnumerator ToPosition() {
+        yield return StartCoroutine(MoveTo(tragetPos, Mathf.Abs(currentID - perviouseID) * .2f));
+
+    }
+
+
+
+
     public Vector3 tragetRotation;
-    public Vector3 tragetPos;
+
+    
+    public Vector3 target_Pos = new Vector3(0, 15.3f, -30f);
+    public Vector3 tragetPos {
+        get { return target_Pos; }
+        set {
+            target_Pos = value;
+            //isArrived = false;
+        }
+    }
     private Vector3 perviousPos;
     private float easeingValue = 0.05f;
     private float RoteaseingValue = 0.005f;
-    public void initialization() {
-        if (instance == null) {
+
+    public IEnumerator initialization() {
+        if (instance == null)
+        {
             instance = this;
+
         }
 
+        ValueSheet.IsInMainMenu = true;
+        this.transform.position = new Vector3(0, 15.3f, 300f);
+            this.transform.rotation = Quaternion.Euler(Vector3.zero);
+            tragetPos = new Vector3(0, 15.3f, -30f);
+            yield return new WaitForSeconds(.4f);
+
+     StartCoroutine(MoveTo(tragetPos, 1f));
+        ShowMainPicture();
+        HideDescription(perviouseID);
+
+        CanvasMangager.instance.Building.SetActive(true);
+    }
+
+    public void SetCameraTransDefault() {
+        this.transform.position = new Vector3(0, 15.3f, 300f);
+        this.transform.rotation = Quaternion.Euler(Vector3.zero);
     }
 
     // Update is called once per frame
     void Update () {
-        if (ValueSheet.IsInMainMenu)
+        //Debug.Log(target_Pos);
+
+        
+    }
+
+
+    public IEnumerator MoveTo(Vector3 pos,float time, Action action=null) {
+        LeanTween.move(this.gameObject, pos, time).setOnComplete(delegate () {
+            if (action != null) {
+                action();
+            }
+        }).setEase(LeanTweenType.easeInOutQuad);
+        yield return new WaitForSeconds(time);
+    }
+
+
+  
+
+    public IEnumerator MoveInPosition() {
+        //isArrived = false;
+        perviousPos = transform.position;
+       // Debug.Log("set false");
+
+
+        //HideMainPicture();
+
+      //  Debug.Log("traget pos");
+        tragetPos = ValueSheet.ID_Node_keyValuePairs[currentID].GetComponent<NodeCtr>().cameraSetTrans.position;
+
+        if (currentID % 2 == 0)//偶数向左奇数向右
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))//前进
-            {
-                CurrentID++;
-                if (!max) {
-                    tragetPos = new Vector3(tragetPos.x, tragetPos.y, -30 + currentID * ValueSheet.NodeDistance);
-                    BottomBarCtr.instance.ChangeDot(CurrentID);
-                }
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))//后退
-            {
-                CurrentID--;
 
-                if (!min) {
-                    tragetPos = new Vector3(tragetPos.x, tragetPos.y, -30 + currentID * ValueSheet.NodeDistance);
-                    BottomBarCtr.instance.ChangeDot(CurrentID);
-                }
-            }
-
-            else if (Input.GetKeyDown(KeyCode.A))//显示单个
-            {
-                perviousPos = transform.position;
-                Debug.Log("set false");
-               
-
-                HideMainPicture();
-
-                Debug.Log("traget pos");
-                tragetPos = ValueSheet.ID_Node_keyValuePairs[currentID].GetComponent<NodeCtr>().cameraSetTrans.position;
-
-                if (currentID % 2 == 0)//偶数向左奇数向右
-                {
-
-                    tragetRotation = new Vector3(0, -34.1f, 0);
-                    RotateCamera(tragetRotation);
-                }
-                else
-                {
-                    tragetRotation = new Vector3(0, 34.1f, 0);
-                    RotateCamera(tragetRotation);
-                }
-                ShowDescription();
-
-                ValueSheet.IsInMainMenu = false;
-            }
-         
+            tragetRotation = new Vector3(0, -34.1f, 0);
+            RotateCamera(tragetRotation);
         }
-        else {
-
-
-            if (Input.GetKeyDown(KeyCode.S))
-            {//退回主界面
-                ValueSheet.IsInMainMenu = true;
-
-                tragetPos = perviousPos;
-
-                ShowMainPicture();
-
-                tragetRotation = Vector3.zero;
-                RotateCamera(tragetRotation);
-                HideDescription();
-            }
+        else
+        {
+            tragetRotation = new Vector3(0, 34.1f, 0);
+            RotateCamera(tragetRotation);
         }
+        //ShowDescription();
 
-
-        if ((tragetPos - transform.position).magnitude < 0.01f) {
-            transform.position = tragetPos;
-        }
-
-
-        transform.position = transform.position + (tragetPos - transform.position) * easeingValue;
-
+        ValueSheet.IsInMainMenu = false;
+     yield return  StartCoroutine(MoveTo(tragetPos,.2f));
     }
 
     void HideMainPicture() {
@@ -132,17 +213,20 @@ public class CameraMover : MonoBehaviour {
 
     void RotateCamera(Vector3 angle)
     {
-        LeanTween.rotateY(this.gameObject, angle.y, 1f).setEase(LeanTweenType.easeInOutQuad);
+        LeanTween.rotateY(this.gameObject, angle.y, .5f).setEase(LeanTweenType.notUsed);
 
     }
 
 
-    void ShowDescription() {
-        ValueSheet.nodeCtrs[CurrentID].ShowDescription();
+    void ShowDescription(int id) {
+
+
+        ValueSheet.nodeCtrs[id].ShowDescription();
     }
 
-    void HideDescription()
+    void HideDescription(int id)
     {
-        ValueSheet.nodeCtrs[CurrentID].HideDescription();
+
+        ValueSheet.nodeCtrs[id].HideDescription();
     }
 }

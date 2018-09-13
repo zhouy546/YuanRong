@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NodeCtr : MonoBehaviour {
 
-    public enum UIStyle { defalue,Style01}
+    public enum UIStyle { defalue, Style00,Style01 }
 
     public UIStyle uIStyle;
 
@@ -14,11 +14,11 @@ public class NodeCtr : MonoBehaviour {
 
     public List<Sprite> nImagesDescription = new List<Sprite>();
 
-    public List<GameObject> DescriptionUI = new List<GameObject>();
+    public Video_DescriptionCtr DescriptionUI;
 
     public Transform cameraSetTrans;
 
-    public Video_DescriptionCtr descriptionCtr;
+ 
         
     // Use this for initialization
     void Start () {
@@ -31,25 +31,9 @@ public class NodeCtr : MonoBehaviour {
         SetupMainImage(Mainsprite);
         SetupUpBgImage(BGDescriptionImage);
 
-        foreach (var item in DescriptionUI)
-        {
-            item.GetComponent<Video_DescriptionCtr>().initialization();
-        }
 
-        switch (uIStyle)
-        {
-            case UIStyle.defalue:
-                descriptionCtr =DescriptionUI[0].GetComponent<Video_DescriptionCtrDefault>();
-                break;
-            case UIStyle.Style01:
-                descriptionCtr = DescriptionUI[1].GetComponent<Video_DescriptionStyle01>();
-                
-                break;
-            default:
-                break;
-        }
-
-        descriptionCtr.initialization();
+       DescriptionUI.initialization();
+ 
 
         SetupDescriptionImage();
 
@@ -59,8 +43,8 @@ public class NodeCtr : MonoBehaviour {
     {
         nImagesDescription= ValueSheet.DescriptionkeyValuePairs[int.Parse(this.name)];
 
-       // Debug.Log(nImagesDescription.Count);
-        descriptionCtr.setupImage(nImagesDescription);
+        // Debug.Log(nImagesDescription.Count);
+        DescriptionUI.setupImage(nImagesDescription);
     }
 
 
@@ -92,14 +76,14 @@ public class NodeCtr : MonoBehaviour {
 
     public void ShowDescription() {
 
-        descriptionCtr.TriggerAnimation();
+        DescriptionUI.TriggerAnimation();
         showDescriptionBGImage();
         PlayVideo();
     }
 
 
     public void HideDescription() {
-        descriptionCtr.TriggerAnimation();
+        DescriptionUI.TriggerAnimation();
         hideDescriptionBGImage();
 
         StopVideo();

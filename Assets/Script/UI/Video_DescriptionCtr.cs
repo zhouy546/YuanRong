@@ -21,12 +21,18 @@ public class Video_DescriptionCtr : MonoBehaviour {
 	}
 
     public void TriggerAnimation() {
+        Debug.Log("triggle animation");
 
         animator.SetTrigger("Defalut");
 
     }
 
     public virtual void setupImage(List<Sprite> sprites)
+    {
+
+    }
+
+    public virtual void setupImage(Sprite L_sprite, Sprite R_sprite)
     {
 
     }
