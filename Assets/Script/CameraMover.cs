@@ -6,7 +6,7 @@ using UnityEngine;
 public class CameraMover : MonoBehaviour {
     public static CameraMover instance;
 
-
+    LTDescr cameraLfoatTween;
     private int perviouseID = 0;
     private int currentID = 0;
     public int CurrentID {
@@ -20,11 +20,11 @@ public class CameraMover : MonoBehaviour {
              
                 tragetPos = new Vector3(0, 15.3f, -30 + currentID * ValueSheet.NodeDistance);
 
-                if (ValueSheet.IsInMainMenu)
+                if (ValueSheet.IsInMainMenu)//第一次进来
                 {
                     StartCoroutine(MenuToDes());
                 }
-                else
+                else//之后切换
                 {
 
                     StartCoroutine(DesToDes());
@@ -38,6 +38,26 @@ public class CameraMover : MonoBehaviour {
         }
     }
 
+
+    public void stopCameraFloating() {
+        if (cameraLfoatTween != null) {
+            Debug.Log("stop floating");
+            LeanTween.cancel(cameraLfoatTween.id);
+        }
+    }
+
+    public void CameraFloation() {
+       float x = UnityEngine.Random.Range(-3,3);
+        float y = UnityEngine.Random.Range(-3, 3);
+        float time = UnityEngine.Random.Range(10, 12);
+
+        Vector3 Pposition = this.transform.position;
+        Debug.Log(" floating");
+        Vector3 pos = new Vector3(this.transform.position.x+x, this.transform.position.y+y, this.transform.position.z);
+        cameraLfoatTween = LeanTween.move(this.gameObject, pos, time).setOnComplete(delegate() {
+            MoveTopos(Pposition, time, CameraFloation);
+        });
+    }
 
     public void GoingInTheWell()
     {
@@ -63,6 +83,7 @@ public class CameraMover : MonoBehaviour {
 
 
     IEnumerator DesToDes() {
+       
         SoundMangager.instance.GoThrough();
         yield return StartCoroutine(ToMenu());
 
@@ -70,7 +91,7 @@ public class CameraMover : MonoBehaviour {
         yield return StartCoroutine(GoingIn());
         perviouseID = currentID;
         SoundMangager.instance.StopSound();
-
+        CameraFloation();
     }
 
 
@@ -81,23 +102,26 @@ public class CameraMover : MonoBehaviour {
         Debug.Log(perviouseID.ToString());
         HideDescription(perviouseID);
         ShowMainPicture();
-        RotateCamera(Vector3.zero);
+       RotateCamera(Vector3.zero);
         yield return new WaitForSeconds(1f);
         //perviouseID = currentID;
     }
 
     IEnumerator MenuToDes() {
+  
+        Debug.Log("MenuToDes");
         SoundMangager.instance.GoThrough();
         yield return StartCoroutine(ToPosition());
         yield return StartCoroutine(GoingIn());
         perviouseID = currentID;
         SoundMangager.instance.StopSound();
+        CameraFloation();
     }
 
 
     IEnumerator GoingIn() {
         ShowDescription(currentID);
-        HideMainPicture();
+      yield return  StartCoroutine( HideMainPicture());
         yield return StartCoroutine(MoveInPosition());
     }
 
@@ -130,17 +154,22 @@ public class CameraMover : MonoBehaviour {
             instance = this;
 
         }
-
+        perviouseID = currentID = 0;
+        
+    //    HideMainPicture();
+        stopCameraFloating();
+        //Debug.Log("初始化 海洋");
         ValueSheet.IsInMainMenu = true;
-        this.transform.position = new Vector3(0, 15.3f, 300f);
-            this.transform.rotation = Quaternion.Euler(Vector3.zero);
-            tragetPos = new Vector3(0, 15.3f, -30f);
-            yield return new WaitForSeconds(.4f);
+        SetCameraTransDefault();
+        tragetPos = new Vector3(0, 15.3f, -30f);
 
-     StartCoroutine(MoveTo(tragetPos, 1f));
+        yield return new WaitForSeconds(.4f);
+        // Debug.Log("初始化 海洋 目标位置" + tragetPos.ToString());
+       
+        StartCoroutine(MoveTo(tragetPos, 1f));
         ShowMainPicture();
-        HideDescription(perviouseID);
-
+        HideAllDescription();
+        BottomBarCtr.instance.ChangeDot(CurrentID);
         CanvasMangager.instance.Building.SetActive(true);
     }
 
@@ -158,16 +187,25 @@ public class CameraMover : MonoBehaviour {
 
 
     public IEnumerator MoveTo(Vector3 pos,float time, Action action=null) {
+        stopCameraFloating();
         LeanTween.move(this.gameObject, pos, time).setOnComplete(delegate () {
             if (action != null) {
                 action();
             }
-        }).setEase(LeanTweenType.easeInOutQuad);
+        }).setEase(LeanTweenType.notUsed);
         yield return new WaitForSeconds(time);
     }
 
+    public void MoveTopos(Vector3 pos, float time, Action action = null)
+    {
+        LeanTween.move(this.gameObject, pos, time).setOnComplete(delegate () {
+            if (action != null)
+            {
+                action();
+            }
+        }).setEase(LeanTweenType.notUsed);
+    }
 
-  
 
     public IEnumerator MoveInPosition() {
         //isArrived = false;
@@ -194,26 +232,28 @@ public class CameraMover : MonoBehaviour {
         //ShowDescription();
 
         ValueSheet.IsInMainMenu = false;
-     yield return  StartCoroutine(MoveTo(tragetPos,.2f));
+     yield return  StartCoroutine(MoveTo(tragetPos,.5f));
     }
 
-    void HideMainPicture() {
+    public IEnumerator HideMainPicture() {
         foreach (var item in ValueSheet.nodeCtrs)
         {
             item.HideMainPicture();
         }
+        yield return new WaitForSeconds(0);
     }
 
-    void ShowMainPicture() {
+    public void ShowMainPicture() {
         foreach (var item in ValueSheet.nodeCtrs)
         {
             item.ShowMainPicture();
         }
     }
 
-    void RotateCamera(Vector3 angle)
+    void RotateCamera(Vector3 angle,float time = .5f)
     {
-        LeanTween.rotateY(this.gameObject, angle.y, .5f).setEase(LeanTweenType.notUsed);
+        LeanTween.rotateY(this.gameObject, angle.y, time).setEase(LeanTweenType.notUsed);
+       
 
     }
 
@@ -228,5 +268,12 @@ public class CameraMover : MonoBehaviour {
     {
 
         ValueSheet.nodeCtrs[id].HideDescription();
+    }
+
+    public void HideAllDescription() {
+        foreach (var item in ValueSheet.nodeCtrs)
+        {
+            item.HideDescription();
+        }
     }
 }

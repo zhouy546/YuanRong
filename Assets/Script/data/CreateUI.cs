@@ -42,6 +42,8 @@ public class CreateUI : MonoBehaviour {
                 } 
             }
             ValueSheet.ID_Node_keyValuePairs.Add(ReadJson.NodeList[i].ID, NodeObject[i]);
+
+
         }
 
         //foreach (var item in ValueSheet.ID_Node_keyValuePairs)
@@ -53,8 +55,14 @@ public class CreateUI : MonoBehaviour {
     private void CreateObject(GameObject g,int i , Vector3 pos) {
 
          g = Instantiate(g, pos, Quaternion.identity);
+
         g.name = i.ToString();
+
         ValueSheet.nodeCtrs.Add(g.GetComponent<NodeCtr>());
+
+        g.GetComponent<NodeCtr>().FloatingAniamtion();
+
         NodeObject.Add(g);
+
     }
 }

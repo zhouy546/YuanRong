@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NodeCtr : MonoBehaviour {
 
-    public enum UIStyle { defalue, Style00,Style01 }
+    public enum UIStyle { defalue, Style00, Style01 }
 
     public UIStyle uIStyle;
 
@@ -18,10 +18,14 @@ public class NodeCtr : MonoBehaviour {
 
     public Transform cameraSetTrans;
 
- 
-        
+
+
     // Use this for initialization
-    void Start () {
+    void Start() {
+
+    }
+
+    public void FloatingAniamtion() {
 
     }
 
@@ -76,14 +80,14 @@ public class NodeCtr : MonoBehaviour {
 
     public void ShowDescription() {
 
-        DescriptionUI.TriggerAnimation();
+        DescriptionUI.TriggerAnimation(true);
         showDescriptionBGImage();
         PlayVideo();
     }
 
 
     public void HideDescription() {
-        DescriptionUI.TriggerAnimation();
+        DescriptionUI.TriggerAnimation(false);
         hideDescriptionBGImage();
 
         StopVideo();

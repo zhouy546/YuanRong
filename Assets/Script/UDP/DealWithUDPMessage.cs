@@ -36,11 +36,17 @@ public class DealWithUDPMessage : MonoBehaviour {
 
             if (dataTest == "10000")
             {
+               
                 SoundMangager.instance.Select();
-               // Debug.Log("返回");
-                VideoCtr.instance.PlayFullScreenVideoPlayer(ValueSheet.screenProtect);
+                Debug.Log("返回");
+                VideoCtr.instance.stopVideo();
+               VideoCtr.instance.PlayFullScreenVideoPlayer(ValueSheet.screenProtect);
+                VideoCtr.instance.SentOnce = false;
                 wellMesh.SetActive(false);
                 CameraMover.instance.SetCameraTransDefault();
+                CameraMover.instance.HideAllDescription();
+                //CameraMover.instance.HideMainPicture();
+
                 CanvasMangager.instance.ONOFF(false);
                StartCoroutine( CanvasMangager.instance.Fade());
             }

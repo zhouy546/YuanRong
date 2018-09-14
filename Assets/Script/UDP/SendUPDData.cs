@@ -16,9 +16,9 @@ public class SendUPDData : MonoBehaviour {
     public string udpData_str;
     string _sSend = "";
 
-    [Tooltip("接受端口号")] public int m_ReceivePort = 29010;//接收的端口号 
+    [Tooltip("接受端口号")] public int m_ReceivePort = 29011;//接收的端口号 
     Socket udpserver = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-    private string m_ip;//定义一个IP地址
+    private string m_ip = "192.168.1.10";//定义一个IP地址
 
     public bool udp_Send(string da, string ip, int port)
     {
@@ -48,12 +48,7 @@ public class SendUPDData : MonoBehaviour {
         if (instance == null)
         {
             instance = this;
-        }
-
-        m_ip = Network.player.ipAddress;
-
-
-    }
+        }    }
 
     // Update is called once per frame
     void Update()
@@ -69,7 +64,7 @@ public class SendUPDData : MonoBehaviour {
 
         udp_Send(_sSend, m_ip, m_ReceivePort);
 
-        VideoCtr.instance.SentOnce = false;
+       
     }
 
 

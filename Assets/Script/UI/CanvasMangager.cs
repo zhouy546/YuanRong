@@ -32,7 +32,7 @@ public class CanvasMangager : MonoBehaviour {
 
     public IEnumerator Fade() {
         BlackScreen.ShowAll(0f);
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(.5f);
         BlackScreen.HideAll(1);
     }
 }
