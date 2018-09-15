@@ -148,33 +148,33 @@ public class CameraMover : MonoBehaviour {
     private float easeingValue = 0.05f;
     private float RoteaseingValue = 0.005f;
 
-    public IEnumerator initialization() {
+    public IEnumerator initialization(Vector3 defaultpos) {
         if (instance == null)
         {
             instance = this;
 
         }
+       
+
         perviouseID = currentID = 0;
-        
-    //    HideMainPicture();
+
+        //    HideMainPicture(); new Vector3(0, 15.3f, 300f)
         stopCameraFloating();
         //Debug.Log("初始化 海洋");
         ValueSheet.IsInMainMenu = true;
-        SetCameraTransDefault();
+        SetCameraTransDefault(defaultpos);
         tragetPos = new Vector3(0, 15.3f, -30f);
 
         yield return new WaitForSeconds(.4f);
-        // Debug.Log("初始化 海洋 目标位置" + tragetPos.ToString());
+         //Debug.Log("初始化 海洋 目标位置" + tragetPos.ToString());
        
         StartCoroutine(MoveTo(tragetPos, 1f));
-        ShowMainPicture();
-        HideAllDescription();
         BottomBarCtr.instance.ChangeDot(CurrentID);
         CanvasMangager.instance.Building.SetActive(true);
     }
 
-    public void SetCameraTransDefault() {
-        this.transform.position = new Vector3(0, 15.3f, 300f);
+    public void SetCameraTransDefault(Vector3 pos ) {
+        this.transform.position = pos;
         this.transform.rotation = Quaternion.Euler(Vector3.zero);
     }
 
@@ -188,7 +188,10 @@ public class CameraMover : MonoBehaviour {
 
     public IEnumerator MoveTo(Vector3 pos,float time, Action action=null) {
         stopCameraFloating();
-        LeanTween.move(this.gameObject, pos, time).setOnComplete(delegate () {
+        //Debug.Log("Move TO POS"+pos.ToString());
+        LeanTween.move(this.gameObject, pos, time).setOnUpdate(delegate(Vector3 v) {
+
+        }).setOnComplete(delegate () {
             if (action != null) {
                 action();
             }

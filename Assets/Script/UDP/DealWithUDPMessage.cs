@@ -34,28 +34,30 @@ public class DealWithUDPMessage : MonoBehaviour {
 
             Debug.Log(dataTest);
 
-            if (dataTest == "10000")
+            if (dataTest == "10000")//返回
             {
-               
+                MainCtr.instance.TurnOffAll();
                 SoundMangager.instance.Select();
                 Debug.Log("返回");
                 VideoCtr.instance.stopVideo();
                VideoCtr.instance.PlayFullScreenVideoPlayer(ValueSheet.screenProtect);
                 VideoCtr.instance.SentOnce = false;
                 wellMesh.SetActive(false);
-                CameraMover.instance.SetCameraTransDefault();
+                CameraMover.instance.SetCameraTransDefault(new Vector3(0, 15.3f, 300f));
                 CameraMover.instance.HideAllDescription();
                 //CameraMover.instance.HideMainPicture();
 
                 CanvasMangager.instance.ONOFF(false);
                StartCoroutine( CanvasMangager.instance.Fade());
             }
-            else if (dataTest == "10001")
+            else if (dataTest == "10001")//开发管理项目
             {
-
-               // Debug.Log("开发管理项目");
-                StartCoroutine(CameraMover.instance.initialization());
+                MainCtr.instance.TurnOffAll();
+                MainCtr.instance.TURN_ON_OFFChild(MainCtr.instance.defaultNodeParentCtr,true,ValueSheet.nodeCtrs);
+                Debug.Log("开发管理项目");
                 VideoCtr.instance.StopFullScreenVideoPlayer();
+                StartCoroutine(CameraMover.instance.initialization(new Vector3(0, 15.3f, 300f)));
+
                 CanvasMangager.instance.ONOFF(true);
                 StartCoroutine(CanvasMangager.instance.Fade());
             }
@@ -66,8 +68,10 @@ public class DealWithUDPMessage : MonoBehaviour {
             {
 
             }
-            else if (dataTest == "10015")
+            else if (dataTest == "10015")//荣誉墙
             {
+                MainCtr.instance.TurnOffAll();
+
                 SoundMangager.instance.Select();
                 CameraMover.instance.GoingInTheWell();
                 wellMesh.SetActive(true);
@@ -75,42 +79,51 @@ public class DealWithUDPMessage : MonoBehaviour {
                 StartCoroutine(CanvasMangager.instance.Fade());
                 VideoCtr.instance.StopFullScreenVideoPlayer();
             }
-            else if (dataTest == "10016")
+            else if (dataTest == "10016")//荣誉墙 左
             {
                 SoundMangager.instance.Select();
                 CameraMover.instance.LookWellLeft();
 
             }
-            else if (dataTest == "10017")
+            else if (dataTest == "10017")//荣誉墙 中
             {
                 SoundMangager.instance.Select();
                 CameraMover.instance.LookWellMid();
             }
-            else if (dataTest == "10018")
+            else if (dataTest == "10018")//荣誉墙 右
             {
                 SoundMangager.instance.Select();
                 CameraMover.instance.LookWellRight();
             }
-            else if (dataTest == "10019")
+            else if (dataTest == "10019")//商业文化
             {
+                MainCtr.instance.TurnOffAll();
+                MainCtr.instance.TURN_ON_OFFChild(MainCtr.instance.eCONodeParentCtr, true, ValueSheet.ECO_nodeCtrs);
                 SoundMangager.instance.Select();
-                VideoCtr.instance.PlayFullScreenVideoPlayer(ValueSheet.CultureAndECON, true);
+                VideoCtr.instance.StopFullScreenVideoPlayer();
+                //VideoCtr.instance.PlayFullScreenVideoPlayer(ValueSheet.CultureAndECON, true);
+                StartCoroutine(CameraMover.instance.initialization(new Vector3(0, 15.3f, 300f)));
                 CanvasMangager.instance.ONOFF(false);
                 StartCoroutine(CanvasMangager.instance.Fade());
             }
-            else if (dataTest == "10020")
+            else if (dataTest == "10020")//项目高光
             {
+                MainCtr.instance.TurnOffAll();
                 SoundMangager.instance.Select();
                 VideoCtr.instance.PlayFullScreenVideoPlayer(ValueSheet.ProjcetHighLight, false);
                 CanvasMangager.instance.ONOFF(false);
                 StartCoroutine(CanvasMangager.instance.Fade());
             }
-            else if (dataTest == "10021")
+            else if (dataTest == "10021")//公益
             {
+                MainCtr.instance.TurnOffAll();
+                MainCtr.instance.TURN_ON_OFFChild(MainCtr.instance.eCONodeParentCtr, true, ValueSheet.Gongyi_nodeCtrs);
                 Debug.Log("running");
                 SoundMangager.instance.Select();
-                VideoCtr.instance.PlayFullScreenVideoPlayer(ValueSheet.Gongyi, true);
-                CanvasMangager.instance.ONOFF(false);
+                VideoCtr.instance.StopFullScreenVideoPlayer();
+                StartCoroutine(CameraMover.instance.initialization(new Vector3(0, 15.3f, 300f)));
+                // VideoCtr.instance.PlayFullScreenVideoPlayer(ValueSheet.Gongyi, true);
+                CanvasMangager.instance.ONOFF(true);
                 StartCoroutine(CanvasMangager.instance.Fade());
             }
             else if (dataTest == "10022")

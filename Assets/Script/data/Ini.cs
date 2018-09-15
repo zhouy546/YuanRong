@@ -11,6 +11,7 @@ public class Ini : MonoBehaviour {
     private BottomBarCtr bottomBarCtr;
     private CanvasMangager canvasMangager;
     private SoundMangager soundMangager;
+    private MainCtr mainCtr;
 
     private List<Sprite> MainUIsprites = new List<Sprite>();
     private List<Sprite> DescriptionBG = new List<Sprite>();
@@ -38,6 +39,8 @@ public class Ini : MonoBehaviour {
         canvasMangager = FindObjectOfType<CanvasMangager>();
 
         soundMangager = FindObjectOfType<SoundMangager>();
+
+        mainCtr = FindObjectOfType<MainCtr>();
         //------ini--------------//
         yield return StartCoroutine(readJson.initialization());
 
@@ -51,13 +54,15 @@ public class Ini : MonoBehaviour {
 
         createUI.initialization();
 
-        StartCoroutine( cameraMover.initialization());
+        StartCoroutine( cameraMover.initialization(new Vector3(0, 15.3f, 300f)));
 
         bottomBarCtr.initialization();
 
         initializationMainUI();
 
         canvasMangager.initialization();
+
+        mainCtr.initialization();
     }
 
     void initializationMainUI() {

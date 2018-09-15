@@ -14,6 +14,10 @@ public class ReadJson : MonoBehaviour {
 
     public static List<Node> NodeList = new List<Node>();
 
+    public static List<Node> ECO_NodeList = new List<Node>();
+
+    public static List<Node> Gongyi_NodeList = new List<Node>();
+
     public static ReadJson instance;
 
   //  public  Ntext ntext;
@@ -22,9 +26,7 @@ public class ReadJson : MonoBehaviour {
 
     private string jsonString;
 
-    int id;
-    string bigTitle;
-    string VideoPath;
+ 
 
 
     public IEnumerator initialization() {
@@ -57,21 +59,37 @@ public class ReadJson : MonoBehaviour {
         for (int i = 0; i < itemDate["information"].Count; i++)
 
         {
+            SetupNodeList(i, ref NodeList);
 
-             id = int.Parse(itemDate["information"][i]["id"].ToString());//get id;
-
-             bigTitle = itemDate["information"][i]["BigTitle"].ToString();//get bigtitle;
-
-            VideoPath = itemDate["information"][i]["VideoPath"].ToString();//get video path;
-
-            NodeList.Add(new Node(id, bigTitle, VideoPath));
         }
 
+        for (int i = 0; i < itemDate["ECO"].Count; i++)
+
+        {
+            SetupNodeList(i, ref ECO_NodeList);
+        }
+
+        for (int i = 0; i < itemDate["Gongyi"].Count; i++)
+        {
+            SetupNodeList(i, ref Gongyi_NodeList);
+
+        }
         //setupUI(bigTitle);
 
     }
 
-    //void setupUI(string str) {
-    //    ntext.SetText(str);
-    //}
+    void SetupNodeList(int i, ref List<Node> nodes)
+    {
+        int id;
+        string bigTitle;
+        string VideoPath;
+
+        id = int.Parse(itemDate["information"][i]["id"].ToString());//get id;
+
+        bigTitle = itemDate["information"][i]["BigTitle"].ToString();//get bigtitle;
+
+        VideoPath = itemDate["information"][i]["VideoPath"].ToString();//get video path;
+
+        nodes.Add(new Node(id, bigTitle, VideoPath));
+    }
 }
