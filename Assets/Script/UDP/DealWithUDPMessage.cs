@@ -36,6 +36,7 @@ public class DealWithUDPMessage : MonoBehaviour {
 
             if (dataTest == "10000")//返回
             {
+               
                 MainCtr.instance.TurnOffAll();
                 SoundMangager.instance.Select();
                 Debug.Log("返回");
@@ -52,6 +53,7 @@ public class DealWithUDPMessage : MonoBehaviour {
             }
             else if (dataTest == "10001")//开发管理项目
             {
+                ValueSheet.CurrentNodeCtr = ValueSheet.nodeCtrs;
                 MainCtr.instance.TurnOffAll();
                 MainCtr.instance.TURN_ON_OFFChild(MainCtr.instance.defaultNodeParentCtr,true,ValueSheet.nodeCtrs);
                 Debug.Log("开发管理项目");
@@ -97,6 +99,7 @@ public class DealWithUDPMessage : MonoBehaviour {
             }
             else if (dataTest == "10019")//商业文化
             {
+                ValueSheet.CurrentNodeCtr = ValueSheet.ECO_nodeCtrs;
                 MainCtr.instance.TurnOffAll();
                 MainCtr.instance.TURN_ON_OFFChild(MainCtr.instance.eCONodeParentCtr, true, ValueSheet.ECO_nodeCtrs);
                 SoundMangager.instance.Select();
@@ -116,6 +119,7 @@ public class DealWithUDPMessage : MonoBehaviour {
             }
             else if (dataTest == "10021")//公益
             {
+                ValueSheet.CurrentNodeCtr = ValueSheet.Gongyi_nodeCtrs;
                 MainCtr.instance.TurnOffAll();
                 MainCtr.instance.TURN_ON_OFFChild(MainCtr.instance.eCONodeParentCtr, true, ValueSheet.Gongyi_nodeCtrs);
                 Debug.Log("running");

@@ -18,7 +18,7 @@ public class NodeCtr : MonoBehaviour {
 
     public Transform cameraSetTrans;
 
-
+    public Animator MainPicAnimCtr;
 
     // Use this for initialization
     void Start() {
@@ -34,7 +34,7 @@ public class NodeCtr : MonoBehaviour {
         nImageDescriptionBGImage.initialization();
         SetupMainImage(Mainsprite);
         SetupUpBgImage(BGDescriptionImage);
-
+        
 
        DescriptionUI.initialization();
  
@@ -95,12 +95,14 @@ public class NodeCtr : MonoBehaviour {
 
 
     public void HideMainPicture() {
-        nImageMainImage.HideAll(.2f);
+        MainPicAnimCtr.SetBool("Show", false);
+
     }
 
     public void ShowMainPicture()
     {
-        nImageMainImage.ShowAll(2);
+        MainPicAnimCtr.SetBool("Show", true);
+
     }
 
 

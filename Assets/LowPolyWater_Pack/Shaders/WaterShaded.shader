@@ -194,13 +194,14 @@ Subshader
 			Cull Off
 		
 			CGPROGRAM
-		
+			
 			#pragma target 3.0
 		
 			#pragma vertex vert
 			#pragma fragment frag
 			#pragma multi_compile_fog
 		
+			
 			#pragma multi_compile WATER_EDGEBLEND_ON WATER_EDGEBLEND_OFF 
 		
 			ENDCG

@@ -14,8 +14,6 @@ public class ValueSheet : MonoBehaviour {
     public static string Co = "合作伙伴.mp4";
 
 
-    public static bool InOcean = true;
-
     public static float NodeDistance = 30f;
 
     public static Dictionary<int, GameObject> ID_Node_keyValuePairs = new Dictionary<int, GameObject>();
@@ -27,9 +25,11 @@ public class ValueSheet : MonoBehaviour {
 
 
 
-public static List<NodeCtr> nodeCtrs = new List<NodeCtr>();
+    public static List<NodeCtr> nodeCtrs = new List<NodeCtr>();
     public static List<NodeCtr> ECO_nodeCtrs = new List<NodeCtr>();
     public static List<NodeCtr> Gongyi_nodeCtrs = new List<NodeCtr>();
+
+    public static List<NodeCtr> CurrentNodeCtr = new List<NodeCtr>();
     public static bool IsInMainMenu = true;
 
 

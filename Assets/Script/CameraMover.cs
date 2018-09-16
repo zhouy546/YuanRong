@@ -16,8 +16,7 @@ public class CameraMover : MonoBehaviour {
             
             currentID = value;
 
-            if (ValueSheet.InOcean) {
-             
+  
                 tragetPos = new Vector3(0, 15.3f, -30 + currentID * ValueSheet.NodeDistance);
 
                 if (ValueSheet.IsInMainMenu)//第一次进来
@@ -33,7 +32,7 @@ public class CameraMover : MonoBehaviour {
                 BottomBarCtr.instance.ChangeDot(CurrentID);
 
                 CanvasMangager.instance.Building.SetActive(false);
-            }
+
 
         }
     }
