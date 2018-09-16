@@ -40,7 +40,7 @@ public class DealWithUDPMessage : MonoBehaviour {
                 SoundMangager.instance.Select();
                 Debug.Log("返回");
                 VideoCtr.instance.stopVideo();
-               VideoCtr.instance.PlayFullScreenVideoPlayer(ValueSheet.screenProtect);
+                VideoCtr.instance.PlayFullScreenVideoPlayer(ValueSheet.screenProtect);
                 VideoCtr.instance.SentOnce = false;
                 wellMesh.SetActive(false);
                 CameraMover.instance.SetCameraTransDefault(new Vector3(0, 15.3f, 300f));

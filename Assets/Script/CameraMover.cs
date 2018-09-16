@@ -91,7 +91,7 @@ public class CameraMover : MonoBehaviour {
         yield return StartCoroutine(GoingIn());
         perviouseID = currentID;
         SoundMangager.instance.StopSound();
-        CameraFloation();
+       // CameraFloation();
     }
 
 
@@ -115,7 +115,7 @@ public class CameraMover : MonoBehaviour {
         yield return StartCoroutine(GoingIn());
         perviouseID = currentID;
         SoundMangager.instance.StopSound();
-        CameraFloation();
+        //CameraFloation();
     }
 
 
@@ -159,7 +159,7 @@ public class CameraMover : MonoBehaviour {
         perviouseID = currentID = 0;
 
         //    HideMainPicture(); new Vector3(0, 15.3f, 300f)
-        stopCameraFloating();
+      //  stopCameraFloating();
         //Debug.Log("初始化 海洋");
         ValueSheet.IsInMainMenu = true;
         SetCameraTransDefault(defaultpos);
@@ -187,7 +187,7 @@ public class CameraMover : MonoBehaviour {
 
 
     public IEnumerator MoveTo(Vector3 pos,float time, Action action=null) {
-        stopCameraFloating();
+      //  stopCameraFloating();
         //Debug.Log("Move TO POS"+pos.ToString());
         LeanTween.move(this.gameObject, pos, time).setOnUpdate(delegate(Vector3 v) {
 
