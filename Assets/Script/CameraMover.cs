@@ -31,7 +31,7 @@ public class CameraMover : MonoBehaviour {
 
                 BottomBarCtr.instance.ChangeDot(CurrentID);
 
-                CanvasMangager.instance.Building.SetActive(false);
+               // CanvasMangager.instance.Building.SetActive(false);
 
 
         }
@@ -147,7 +147,7 @@ public class CameraMover : MonoBehaviour {
     private float easeingValue = 0.05f;
     private float RoteaseingValue = 0.005f;
 
-    public IEnumerator initialization(Vector3 defaultpos) {
+    public IEnumerator initialization(Vector3 defaultpos, Vector3 _targetPos) {
         if (instance == null)
         {
             instance = this;
@@ -162,14 +162,14 @@ public class CameraMover : MonoBehaviour {
         //Debug.Log("初始化 海洋");
         ValueSheet.IsInMainMenu = true;
         SetCameraTransDefault(defaultpos);
-        tragetPos = new Vector3(0, 15.3f, -30f);
+        tragetPos = _targetPos;// new Vector3(0, 15.3f, -30f);
 
         yield return new WaitForSeconds(.4f);
          //Debug.Log("初始化 海洋 目标位置" + tragetPos.ToString());
        
         StartCoroutine(MoveTo(tragetPos, 1f));
         BottomBarCtr.instance.ChangeDot(CurrentID);
-        CanvasMangager.instance.Building.SetActive(true);
+        //CanvasMangager.instance.Building.SetActive(true);
     }
 
     public void SetCameraTransDefault(Vector3 pos ) {

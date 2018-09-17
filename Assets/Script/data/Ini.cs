@@ -54,7 +54,7 @@ public class Ini : MonoBehaviour {
 
         createUI.initialization();
 
-        StartCoroutine( cameraMover.initialization(new Vector3(0, 15.3f, 300f)));
+        StartCoroutine( cameraMover.initialization(new Vector3(0, 15.3f, 300f), new Vector3(0, 15.3f, -30f)));
 
         bottomBarCtr.initialization();
 

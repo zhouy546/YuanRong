@@ -14,7 +14,7 @@ public class CTR : MonoBehaviour {
 		
 	}
 
-    public void TurnOn_Off(bool b,List<NodeCtr> nodeCtrs)
+    public virtual void TurnOn_Off(bool b,List<NodeCtr> nodeCtrs)
     {
         foreach (var item in nodeCtrs)
         {
@@ -25,6 +25,24 @@ public class CTR : MonoBehaviour {
 
             }
             else {
+                item.HideDescription();
+                item.HideMainPicture();
+            }
+        }
+    }
+
+    public virtual void TurnOn_Off(bool b, List<SubNodeCTR> nodeCtrs)
+    {
+        foreach (var item in nodeCtrs)
+        {
+            if (b)
+            {
+                item.ShowMainPicture();
+                item.HideDescription();
+
+            }
+            else
+            {
                 item.HideDescription();
                 item.HideMainPicture();
             }

@@ -26,11 +26,17 @@ public class MainCtr : CTR
     }
 
 
-    public void TURN_ON_OFFChild(CTR ctr,bool B,List<NodeCtr> nodeCtrs) {
+    public void TURN_ON_OFFChild_Default(DefaultNodeParentCtr ctr,bool B,List<NodeCtr> nodeCtrs) {
+        ctr.TurnOn_Off(B, nodeCtrs);
+    }
+
+    public void TURN_ON_OFFChild_Sub(CTR ctr, bool B, List<SubNodeCTR> nodeCtrs)
+    {
         ctr.TurnOn_Off(B, nodeCtrs);
     }
 
     public void TurnOffAll() {
+
         defaultNodeParentCtr.TurnOn_Off(false,ValueSheet.nodeCtrs);
         gongyiNodeParentCtr.TurnOn_Off(false, ValueSheet.Gongyi_nodeCtrs);
         eCONodeParentCtr.TurnOn_Off(false,ValueSheet.ECO_nodeCtrs);

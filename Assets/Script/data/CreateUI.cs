@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ public class CreateUI : MonoBehaviour {
     public GameObject NodeR_Style00;
     public GameObject NodeL_Style01;
     public GameObject NodeR_Style01;
+    public GameObject SunNode;
+
 
     public static List<GameObject> NodeObject = new List<GameObject>();
 
@@ -28,10 +31,10 @@ public class CreateUI : MonoBehaviour {
                 
                 if (i == 10)
                 {
-                    CreateObject(NodeL_Style01, i, pos, NodeObject, Parents[0], ValueSheet.nodeCtrs);
+                    CreateObject<NodeCtr>(NodeL_Style01, i, pos, NodeObject, Parents[0], ValueSheet.nodeCtrs);
                 }
                 else {
-                    CreateObject(NodeL_Default, i, pos, NodeObject, Parents[0], ValueSheet.nodeCtrs);
+                    CreateObject<NodeCtr>(NodeL_Default, i, pos, NodeObject, Parents[0], ValueSheet.nodeCtrs);
                 }
                
             }
@@ -41,51 +44,61 @@ public class CreateUI : MonoBehaviour {
                //Debug.Log("RIFHT");
                 if (i == 9)
                 {
-                    CreateObject(NodeR_Style00, i, pos, NodeObject, Parents[0], ValueSheet.nodeCtrs);
+                    CreateObject<NodeCtr>(NodeR_Style00, i, pos, NodeObject, Parents[0], ValueSheet.nodeCtrs);
                     
                 }
                 else {
-                    CreateObject(NodeR_Default, i, pos, NodeObject, Parents[0], ValueSheet.nodeCtrs);
+                    CreateObject<NodeCtr>(NodeR_Default, i, pos, NodeObject, Parents[0], ValueSheet.nodeCtrs);
                 } 
             }
             ValueSheet.ID_Node_keyValuePairs.Add(ReadJson.NodeList[i].ID, NodeObject[i]);
         }
 
 
-        CreateDefault(ReadJson.ECO_NodeList.Count, NodeL_Default, NodeR_Default, ValueSheet.ID_ECO_Node_keyValuePairs, ECO_NodeObject, Parents[1], ValueSheet.ECO_nodeCtrs);
+        CreateSubNode(SunNode, new Vector3 (10,33,0), ECO_NodeObject, Parents[1], ValueSheet.ECO_nodeCtrs);
+        CreateSubNode(SunNode, new Vector3(10, 33, 0), Gongyi_NodeObject, Parents[2], ValueSheet.Gongyi_nodeCtrs);
 
-        CreateDefault(ReadJson.Gongyi_NodeList.Count, NodeL_Default, NodeR_Default, ValueSheet.ID_Gongyi_Node_keyValuePairs, Gongyi_NodeObject,Parents[2], ValueSheet.Gongyi_nodeCtrs);
+        //CreateDefault(ReadJson.ECO_NodeList.Count, NodeL_Default, NodeR_Default, ValueSheet.ID_ECO_Node_keyValuePairs, ECO_NodeObject, Parents[1], ValueSheet.ECO_nodeCtrs);
+
+        //CreateDefault(ReadJson.Gongyi_NodeList.Count, NodeL_Default, NodeR_Default, ValueSheet.ID_Gongyi_Node_keyValuePairs, Gongyi_NodeObject,Parents[2], ValueSheet.Gongyi_nodeCtrs);
 
     }
 
 
-    void CreateDefault(int count, GameObject Prefabs_L, GameObject Prefabs_R, Dictionary<int, GameObject> keyValuePairs,List<GameObject> nodeObj,GameObject parent, List<NodeCtr> nodeCtr)
+
+    void CreateSubNode(GameObject SubNodeGameobject, Vector3 pos,List<GameObject> nodeObj, GameObject parent, List <SubNodeCTR> nodeCtr) {
+        CreateObject<SubNodeCTR>(SunNode, 0, pos, nodeObj, parent, nodeCtr);
+    }
+
+
+
+    void CreateDefault<T>(int count, GameObject Prefabs_L, GameObject Prefabs_R, Dictionary<int, GameObject> keyValuePairs,List<GameObject> nodeObj,GameObject parent, List<T> nodeCtr)
     {
         for (int j = 0; j < count; j++)
         {
             if (j % 2 == 0)
             {
                 Vector3 pos = new Vector3(-30, 16.3f, j * ValueSheet.NodeDistance);
-                CreateObject(Prefabs_L, j, pos, nodeObj, parent, nodeCtr);
+                CreateObject<T>(Prefabs_L, j, pos, nodeObj, parent, nodeCtr);
             }
             else
             {
                 Vector3 pos = new Vector3(30, 16.3f, j * ValueSheet.NodeDistance);
-                CreateObject(Prefabs_R, j, pos, nodeObj, parent, nodeCtr);
+                CreateObject<T>(Prefabs_R, j, pos, nodeObj, parent, nodeCtr);
             }
             keyValuePairs.Add(ReadJson.ECO_NodeList[j].ID, nodeObj[j]);
         }
     }
 
-    private void CreateObject(GameObject g,int i , Vector3 pos,List<GameObject> nodeobj,GameObject parent,List<NodeCtr> nodeCtr) {
+    private void CreateObject<t>(GameObject g,int i , Vector3 pos,List<GameObject> nodeobj,GameObject parent,List<t> nodeCtr) {
 
          g = Instantiate(g, pos, Quaternion.identity);
 
         g.name = i.ToString();
 
-        nodeCtr.Add(g.GetComponent<NodeCtr>());
+        nodeCtr.Add(g.GetComponent<t>());
 
-        g.GetComponent<NodeCtr>().FloatingAniamtion();
+       // g.GetComponent<NodeCtr>().FloatingAniamtion();
 
         g.transform.SetParent(parent.transform);
 

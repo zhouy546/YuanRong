@@ -15,8 +15,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 public class DealWithUDPMessage : MonoBehaviour {
+    public static DealWithUDPMessage instance;
+
     public GameObject wellMesh;
     private string dataTest;
    // public static char[] sliceStr;
@@ -36,32 +39,14 @@ public class DealWithUDPMessage : MonoBehaviour {
 
             if (dataTest == "10000")//返回
             {
-               
-                MainCtr.instance.TurnOffAll();
-                SoundMangager.instance.Select();
-                Debug.Log("返回");
-                VideoCtr.instance.stopVideo();
-                VideoCtr.instance.PlayFullScreenVideoPlayer(ValueSheet.screenProtect);
-                VideoCtr.instance.SentOnce = false;
-                wellMesh.SetActive(false);
-                CameraMover.instance.SetCameraTransDefault(new Vector3(0, 15.3f, 300f));
-                CameraMover.instance.HideAllDescription();
-                //CameraMover.instance.HideMainPicture();
-
-                CanvasMangager.instance.ONOFF(false);
-               StartCoroutine( CanvasMangager.instance.Fade());
+                GoingBack();
             }
             else if (dataTest == "10001")//开发管理项目
             {
-                ValueSheet.CurrentNodeCtr = ValueSheet.nodeCtrs;
-                MainCtr.instance.TurnOffAll();
-                MainCtr.instance.TURN_ON_OFFChild(MainCtr.instance.defaultNodeParentCtr,true,ValueSheet.nodeCtrs);
-                Debug.Log("开发管理项目");
-                VideoCtr.instance.StopFullScreenVideoPlayer();
-                StartCoroutine(CameraMover.instance.initialization(new Vector3(0, 15.3f, 300f)));
 
-                CanvasMangager.instance.ONOFF(true);
-                StartCoroutine(CanvasMangager.instance.Fade());
+                Debug.Log(ValueSheet.nodeCtrs.Count);
+                GoToOcean(ValueSheet.nodeCtrs, MainCtr.instance.defaultNodeParentCtr);
+
             }
             else if (dataTest == "10013") {
 
@@ -99,36 +84,17 @@ public class DealWithUDPMessage : MonoBehaviour {
             }
             else if (dataTest == "10019")//商业文化
             {
-                ValueSheet.CurrentNodeCtr = ValueSheet.ECO_nodeCtrs;
-                MainCtr.instance.TurnOffAll();
-                MainCtr.instance.TURN_ON_OFFChild(MainCtr.instance.eCONodeParentCtr, true, ValueSheet.ECO_nodeCtrs);
-                SoundMangager.instance.Select();
-                VideoCtr.instance.StopFullScreenVideoPlayer();
-                //VideoCtr.instance.PlayFullScreenVideoPlayer(ValueSheet.CultureAndECON, true);
-                StartCoroutine(CameraMover.instance.initialization(new Vector3(0, 15.3f, 300f)));
-                CanvasMangager.instance.ONOFF(false);
-                StartCoroutine(CanvasMangager.instance.Fade());
+                GoToOcean(ValueSheet.ECO_nodeCtrs, MainCtr.instance.eCONodeParentCtr);
+
             }
             else if (dataTest == "10020")//项目高光
             {
-                MainCtr.instance.TurnOffAll();
-                SoundMangager.instance.Select();
-                VideoCtr.instance.PlayFullScreenVideoPlayer(ValueSheet.ProjcetHighLight, false);
-                CanvasMangager.instance.ONOFF(false);
-                StartCoroutine(CanvasMangager.instance.Fade());
+                LoadMainVideo();
             }
             else if (dataTest == "10021")//公益
             {
-                ValueSheet.CurrentNodeCtr = ValueSheet.Gongyi_nodeCtrs;
-                MainCtr.instance.TurnOffAll();
-                MainCtr.instance.TURN_ON_OFFChild(MainCtr.instance.eCONodeParentCtr, true, ValueSheet.Gongyi_nodeCtrs);
-                Debug.Log("running");
-                SoundMangager.instance.Select();
-                VideoCtr.instance.StopFullScreenVideoPlayer();
-                StartCoroutine(CameraMover.instance.initialization(new Vector3(0, 15.3f, 300f)));
-                // VideoCtr.instance.PlayFullScreenVideoPlayer(ValueSheet.Gongyi, true);
-                CanvasMangager.instance.ONOFF(true);
-                StartCoroutine(CanvasMangager.instance.Fade());
+                GoToOcean(ValueSheet.Gongyi_nodeCtrs, MainCtr.instance.gongyiNodeParentCtr);
+
             }
             else if (dataTest == "10022")
             {
@@ -193,6 +159,72 @@ public class DealWithUDPMessage : MonoBehaviour {
 
         }
        
+    }
+
+
+
+
+    public void GoToOcean(List<SubNodeCTR> _nodeCtrs, CTR _ctr)
+    {
+        // ValueSheet.CurrentNodeCtr = _nodeCtrs;
+        ToOceanGeneral(new Vector3(0, 15.3f, 300f), new Vector3(0, 33.3f, -68.1f), false);
+        MainCtr.instance.TURN_ON_OFFChild_Sub(_ctr, true, _nodeCtrs);
+       
+    }
+
+
+    public void GoToOcean(List<NodeCtr> _nodeCtrs, DefaultNodeParentCtr _ctr) {
+        // ValueSheet.CurrentNodeCtr = _nodeCtrs;
+        ToOceanGeneral(new Vector3(0, 15.3f, 300f), new Vector3(0, 15.3f, -30f),true);
+        MainCtr.instance.TURN_ON_OFFChild_Default(_ctr, true, _nodeCtrs);
+
+    }
+
+    void ToOceanGeneral(Vector3 pos,Vector3 _targetPos,bool isTurnOnSideImage)
+    {
+        MainCtr.instance.TurnOffAll();
+        SoundMangager.instance.Select();
+        VideoCtr.instance.StopFullScreenVideoPlayer();
+        StartCoroutine(CameraMover.instance.initialization(pos, _targetPos));
+
+        CanvasMangager.instance.ONOFF(isTurnOnSideImage);
+        StartCoroutine(CanvasMangager.instance.Fade());
+    }
+
+    public void GoingBack() {
+
+        ReplaceFullScreenVideo(ValueSheet.screenProtect);
+
+    }
+
+    public void LoadMainVideo() {
+        ReplaceFullScreenVideo(ValueSheet.ProjcetHighLight,false);
+    }
+
+
+    public void ReplaceFullScreenVideo(string videoName,bool isLoop = true) {
+        MainCtr.instance.TurnOffAll();
+        wellMesh.SetActive(false);
+
+        SoundMangager.instance.Select();
+        VideoCtr.instance.stopVideo();
+        VideoCtr.instance.PlayFullScreenVideoPlayer(videoName,isLoop);
+        VideoCtr.instance.SentOnce = false;
+
+
+        CameraMover.instance.SetCameraTransDefault(new Vector3(0, 15.3f, 300f));
+        CameraMover.instance.HideAllDescription();
+        //CameraMover.instance.HideMainPicture();
+
+        CanvasMangager.instance.ONOFF(false);
+        StartCoroutine(CanvasMangager.instance.Fade());
+    }
+
+    public void Start()
+    {
+        if (instance == null) {
+            instance = this;
+        }
     }
 
 

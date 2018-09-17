@@ -23,6 +23,7 @@ public class CanvasMangager : MonoBehaviour {
 	}
 
     public void ONOFF(bool ONOFF) {
+        Debug.Log(ONOFF);
         foreach (var item in Obj)
         {
             item.SetActive(ONOFF);
@@ -32,7 +33,7 @@ public class CanvasMangager : MonoBehaviour {
 
     public IEnumerator Fade() {
         BlackScreen.ShowAll(0f);
-        yield return new WaitForSeconds(.5f);
-        BlackScreen.HideAll(1);
+        yield return new WaitForSeconds(1f);
+        BlackScreen.HideAll(.7f);
     }
 }

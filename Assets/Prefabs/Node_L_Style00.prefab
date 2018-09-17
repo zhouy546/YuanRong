@@ -412,13 +412,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 757e637ccf90a46448e9ba46d5923b70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uIStyle: 0
+  MainAnimCtr: {fileID: 95236387854197670}
   nImageMainImage: {fileID: 114662279756521044}
   nImageDescriptionBGImage: {fileID: 114755203727678434}
   nImagesDescription: []
   DescriptionUI: {fileID: 114270083831476506}
   cameraSetTrans: {fileID: 4222154042916504}
-  MainPicAnimCtr: {fileID: 95236387854197670}
 --- !u!114 &114662279756521044
 MonoBehaviour:
   m_ObjectHideFlags: 1

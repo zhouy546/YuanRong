@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NodeCtr : MonoBehaviour {
-
-    public enum UIStyle { defalue, Style00, Style01 }
-
-    public UIStyle uIStyle;
+public class NodeCtr : NodeCtrBase {
 
     public NImage nImageMainImage;
 
@@ -18,7 +14,7 @@ public class NodeCtr : MonoBehaviour {
 
     public Transform cameraSetTrans;
 
-    public Animator MainPicAnimCtr;
+    //public Animator MainAnimCtr;
 
     // Use this for initialization
     void Start() {
@@ -78,7 +74,7 @@ public class NodeCtr : MonoBehaviour {
         VideoCtr.instance.stopVideo();
     }
 
-    public void ShowDescription() {
+    public override void ShowDescription() {
 
         DescriptionUI.TriggerAnimation(true);
         showDescriptionBGImage();
@@ -86,7 +82,7 @@ public class NodeCtr : MonoBehaviour {
     }
 
 
-    public void HideDescription() {
+    public override void HideDescription() {
         DescriptionUI.TriggerAnimation(false);
         hideDescriptionBGImage();
 
@@ -94,14 +90,14 @@ public class NodeCtr : MonoBehaviour {
     }
 
 
-    public void HideMainPicture() {
-        MainPicAnimCtr.SetBool("Show", false);
+    public override void HideMainPicture() {
+        MainAnimCtr.SetBool("Show", false);
 
     }
 
-    public void ShowMainPicture()
+    public override void ShowMainPicture()
     {
-        MainPicAnimCtr.SetBool("Show", true);
+        MainAnimCtr.SetBool("Show", true);
 
     }
 

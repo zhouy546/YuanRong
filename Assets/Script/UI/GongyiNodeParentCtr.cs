@@ -19,4 +19,23 @@ public class GongyiNodeParentCtr : CTR
     void Update () {
 		
 	}
+
+    public override void TurnOn_Off(bool b, List<SubNodeCTR> nodeCtrs)
+    {
+       // Debug.Log(nodeCtrs.Count);
+        foreach (var item in nodeCtrs)
+        {
+            if (b)
+            {
+                item.ShowMainPicture();
+                item.HideDescription();
+
+            }
+            else
+            {
+                item.HideDescription();
+                item.HideMainPicture();
+            }
+        }
+    }
 }

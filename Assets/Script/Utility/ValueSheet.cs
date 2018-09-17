@@ -26,8 +26,8 @@ public class ValueSheet : MonoBehaviour {
 
 
     public static List<NodeCtr> nodeCtrs = new List<NodeCtr>();
-    public static List<NodeCtr> ECO_nodeCtrs = new List<NodeCtr>();
-    public static List<NodeCtr> Gongyi_nodeCtrs = new List<NodeCtr>();
+    public static List<SubNodeCTR> ECO_nodeCtrs = new List<SubNodeCTR>();
+    public static List<SubNodeCTR> Gongyi_nodeCtrs = new List<SubNodeCTR>();
 
     public static List<NodeCtr> CurrentNodeCtr = new List<NodeCtr>();
     public static bool IsInMainMenu = true;

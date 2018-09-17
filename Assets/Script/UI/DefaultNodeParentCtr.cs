@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,5 +21,21 @@ public class DefaultNodeParentCtr : CTR
 		
 	}
 
+    public override void  TurnOn_Off(bool b, List<NodeCtr> nodeCtrs)
+    {
+        foreach (var item in nodeCtrs)
+        {
+            if (b)
+            {
+                item.ShowMainPicture();
+                item.HideDescription();
 
+            }
+            else
+            {
+                item.HideDescription();
+                item.HideMainPicture();
+            }
+        }
+    }
 }

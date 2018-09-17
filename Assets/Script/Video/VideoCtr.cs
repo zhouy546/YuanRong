@@ -32,7 +32,7 @@ public class VideoCtr : MonoBehaviour {
             if (!SentOnce) {
                 SentOnce = true;
                 SendUPDData.instance.SentMessage();
-
+                DealWithUDPMessage.instance.GoingBack();
             }
 
         }
