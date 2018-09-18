@@ -36,10 +36,10 @@ public class ImageBase : IRect {
     }
 
     public void ChangeColor(Color color, float time, LeanTweenType leanTweenType = LeanTweenType.notUsed, Action onColorChangeComplete = null,float Delay = 0) {
-        if (ColorLTDescr != null)
-        {
-            CancelColorLeanTween();
-        }
+        //if (ColorLTDescr != null)
+        //{
+        //    CancelColorLeanTween();
+        //}
 
         if (currentColor == color) {
             return;
@@ -89,13 +89,13 @@ public class ImageBase : IRect {
     }
 
     public void HideAll(float time = 1) {
-        HideThisImage(time);
+        //HideThisImage(time);
         HideChildren(time);
     }
 
     public void ShowAll(float time = 1) {
-        ShowThisImage(time);
-       ShowChildren(time);
+        //ShowThisImage(time);
+      ShowChildren(time);
     }
 
     protected void HideChildren(float time) {

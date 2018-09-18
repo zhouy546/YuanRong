@@ -35,6 +35,15 @@ public class Video_DescriptionStyle01 : Video_DescriptionCtr
             }
         }
 
+        //StartCoroutine(AnimationLoop());
+    }
+
+
+
+    public override void TriggerAnimation(bool onoff)
+    {
+        StopAllCoroutines();
+        base.TriggerAnimation(onoff);
         StartCoroutine(AnimationLoop());
     }
 
@@ -45,7 +54,7 @@ public class Video_DescriptionStyle01 : Video_DescriptionCtr
             nImagesDescription[0].image.sprite = LeftSpriteList[i];
             nImagesDescription[1].image.sprite = RightSpriteList[i];
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(4f);
         }
 
         StartCoroutine(AnimationLoop());

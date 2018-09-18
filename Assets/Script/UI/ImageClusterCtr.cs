@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,7 +31,7 @@ public class ImageClusterCtr : MonoBehaviour {
     public RightTrans rightTrans;
     public MidTrans midTrans;
 
-    public int NumOfSection = 3;
+    public int NumOfSection = 4;
 
     private int num =0;
     public int Num {
@@ -65,26 +66,35 @@ public class ImageClusterCtr : MonoBehaviour {
         }
 	}
 
-    void MoveRight() {
-       // Debug.Log("MoveRight");
-        Num--;
-        Move(MovePos(Num), .5f);
-        RotateNode(Num);
-        MoveNodeZ(Num);
+   public void MoveRight() {
+        // Debug.Log("MoveRight");
+        for (int i = 0; i < NumOfSection; i++)
+        {
+            Num--;
+            Move(MovePos(Num), .5f);
+            RotateNode(Num);
+            MoveNodeZ(Num);
+
+        }
     }
 
-    void MoveLeft() {
-        //Debug.Log("MoveLeft");
-        Num++;
-        Move(MovePos(Num), .5f);
-        RotateNode(Num);
-        MoveNodeZ(Num);
+    public void MoveLeft() {
+        for (int i = 0; i < NumOfSection; i++)
+        {
+            //Debug.Log("MoveLeft");
+            Num++;
+            Move(MovePos(Num), .5f);
+            RotateNode(Num);
+            MoveNodeZ(Num);
+        }
     }
-
 
     private void Move(Vector3 pos, float time)
     {
+
         LeanTween.moveLocal(this.gameObject, pos, time);
+
+
     }
 
     private void RotateNode(int num) {

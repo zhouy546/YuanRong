@@ -24,6 +24,8 @@ public class DealWithUDPMessage : MonoBehaviour {
     private string dataTest;
    // public static char[] sliceStr;
     private Vector3 CamRotation;
+
+    public LogoWellCtr logoWellCtr;
     //private bool enterTrigger, exitTrigger;
     /// <summary>
     /// 消息处理
@@ -40,21 +42,16 @@ public class DealWithUDPMessage : MonoBehaviour {
             if (dataTest == "10000")//返回
             {
                 GoingBack();
+                SoundMangager.instance.StopBGM();
             }
             else if (dataTest == "10001")//开发管理项目
             {
 
-                Debug.Log(ValueSheet.nodeCtrs.Count);
+               // Debug.Log(ValueSheet.nodeCtrs.Count);
                 GoToOcean(ValueSheet.nodeCtrs, MainCtr.instance.defaultNodeParentCtr);
 
             }
-            else if (dataTest == "10013") {
 
-            }
-            else if (dataTest == "10014")
-            {
-
-            }
             else if (dataTest == "10015")//荣誉墙
             {
                 MainCtr.instance.TurnOffAll();
@@ -87,6 +84,23 @@ public class DealWithUDPMessage : MonoBehaviour {
                 GoToOcean(ValueSheet.ECO_nodeCtrs, MainCtr.instance.eCONodeParentCtr);
 
             }
+            else if (dataTest == "10013")
+            {//商业文化左移动
+                foreach (var item in ValueSheet.ECO_nodeCtrs)
+                {
+                    item.imageClusterCtr.MoveLeft();
+                }
+
+            }
+            else if (dataTest == "10014")
+            {//商业文化右移动
+                foreach (var item in ValueSheet.ECO_nodeCtrs)
+                {
+                    item.imageClusterCtr.MoveRight();
+                }
+            }
+
+
             else if (dataTest == "10020")//项目高光
             {
                 LoadMainVideo();
@@ -96,10 +110,27 @@ public class DealWithUDPMessage : MonoBehaviour {
                 GoToOcean(ValueSheet.Gongyi_nodeCtrs, MainCtr.instance.gongyiNodeParentCtr);
 
             }
+            else if (dataTest == "10023")
+            {//公益左移动
+                foreach (var item in ValueSheet.Gongyi_nodeCtrs)
+                {
+                    item.imageClusterCtr.MoveLeft();
+                }
+
+            }
+            else if (dataTest == "10024")
+            {//公益右移动
+                foreach (var item in ValueSheet.Gongyi_nodeCtrs)
+                {
+                    item.imageClusterCtr.MoveRight();
+                }
+            }
+
             else if (dataTest == "10022")
             {
                 SoundMangager.instance.Select();
-                VideoCtr.instance.PlayFullScreenVideoPlayer(ValueSheet.Co, true);
+                logoWellCtr.TurnOnLogoWell();
+                VideoCtr.instance.StopFullScreenVideoPlayer();
                 CanvasMangager.instance.ONOFF(false);
                 StartCoroutine(CanvasMangager.instance.Fade());
             }
@@ -167,28 +198,33 @@ public class DealWithUDPMessage : MonoBehaviour {
     public void GoToOcean(List<SubNodeCTR> _nodeCtrs, CTR _ctr)
     {
         // ValueSheet.CurrentNodeCtr = _nodeCtrs;
-        ToOceanGeneral(new Vector3(0, 15.3f, 300f), new Vector3(0, 33.3f, -68.1f), false);
-        MainCtr.instance.TURN_ON_OFFChild_Sub(_ctr, true, _nodeCtrs);
+        ToOceanGeneral(new Vector3(0, 15.3f, 300f), new Vector3(0, 33.3f, -68.1f), false,_ctr);
+       // MainCtr.instance.TURN_ON_OFFChild_Sub(_ctr, true, _nodeCtrs);
        
     }
 
 
     public void GoToOcean(List<NodeCtr> _nodeCtrs, DefaultNodeParentCtr _ctr) {
         // ValueSheet.CurrentNodeCtr = _nodeCtrs;
-        ToOceanGeneral(new Vector3(0, 15.3f, 300f), new Vector3(0, 15.3f, -30f),true);
-        MainCtr.instance.TURN_ON_OFFChild_Default(_ctr, true, _nodeCtrs);
+        ToOceanGeneral(new Vector3(0, 15.3f, 300f), new Vector3(0, 15.3f, -30f),true,_ctr);
+       // MainCtr.instance.TURN_ON_OFFChild_Default(_ctr, true, _nodeCtrs);
 
     }
 
-    void ToOceanGeneral(Vector3 pos,Vector3 _targetPos,bool isTurnOnSideImage)
+    void ToOceanGeneral(Vector3 pos,Vector3 _targetPos,bool isTurnOnSideImage,CTR ctr)
     {
-        MainCtr.instance.TurnOffAll();
+
+        logoWellCtr.TurnOffLogoWell();
+        MainCtr.instance.TurnOnOne(ctr);
         SoundMangager.instance.Select();
         VideoCtr.instance.StopFullScreenVideoPlayer();
         StartCoroutine(CameraMover.instance.initialization(pos, _targetPos));
 
         CanvasMangager.instance.ONOFF(isTurnOnSideImage);
         StartCoroutine(CanvasMangager.instance.Fade());
+
+        SoundMangager.instance.StopBGM();
+        SoundMangager.instance.PlayBGM();
     }
 
     public void GoingBack() {
@@ -199,13 +235,14 @@ public class DealWithUDPMessage : MonoBehaviour {
 
     public void LoadMainVideo() {
         ReplaceFullScreenVideo(ValueSheet.ProjcetHighLight,false);
+        SoundMangager.instance.StopBGM();
     }
 
 
     public void ReplaceFullScreenVideo(string videoName,bool isLoop = true) {
         MainCtr.instance.TurnOffAll();
         wellMesh.SetActive(false);
-
+        logoWellCtr.TurnOffLogoWell();
         SoundMangager.instance.Select();
         VideoCtr.instance.stopVideo();
         VideoCtr.instance.PlayFullScreenVideoPlayer(videoName,isLoop);

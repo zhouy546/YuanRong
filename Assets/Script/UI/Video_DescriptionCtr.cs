@@ -20,7 +20,7 @@ public class Video_DescriptionCtr : MonoBehaviour {
 
 	}
 
-    public void TriggerAnimation(bool onoff) {
+    public virtual void TriggerAnimation(bool onoff) {
      //   Debug.Log("triggle animation");
 
         animator.SetBool("Defalut",onoff);

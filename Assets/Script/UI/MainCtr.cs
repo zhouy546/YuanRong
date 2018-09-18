@@ -42,4 +42,25 @@ public class MainCtr : CTR
         eCONodeParentCtr.TurnOn_Off(false,ValueSheet.ECO_nodeCtrs);
     }
 
+    public void TurnOnOne(CTR ctr) {
+        if (ctr.GetType() == defaultNodeParentCtr.GetType())
+        {
+            defaultNodeParentCtr.TurnOn_Off(true, ValueSheet.nodeCtrs);
+            gongyiNodeParentCtr.TurnOn_Off(false, ValueSheet.Gongyi_nodeCtrs);
+            eCONodeParentCtr.TurnOn_Off(false, ValueSheet.ECO_nodeCtrs);
+        }
+        else if (ctr.GetType() == gongyiNodeParentCtr.GetType())
+        {
+            defaultNodeParentCtr.TurnOn_Off(false, ValueSheet.nodeCtrs);
+            gongyiNodeParentCtr.TurnOn_Off(true, ValueSheet.Gongyi_nodeCtrs);
+            eCONodeParentCtr.TurnOn_Off(false, ValueSheet.ECO_nodeCtrs);
+        }
+        else if (ctr.GetType() == eCONodeParentCtr.GetType()) {
+            defaultNodeParentCtr.TurnOn_Off(false, ValueSheet.nodeCtrs);
+            gongyiNodeParentCtr.TurnOn_Off(false, ValueSheet.Gongyi_nodeCtrs);
+            eCONodeParentCtr.TurnOn_Off(true, ValueSheet.ECO_nodeCtrs);
+        }
+
+    }
+
 }

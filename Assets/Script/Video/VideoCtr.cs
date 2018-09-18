@@ -25,17 +25,30 @@ public class VideoCtr : MonoBehaviour {
       
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
-       // Debug.Log(FullScreenVideoPlayer.CurrentMediaPlayer.Control.IsFinished());
-        if (FullScreenVideoPlayer.CurrentMediaPlayer.Control.IsFinished()) {
-            if (!SentOnce) {
+        // Debug.Log(FullScreenVideoPlayer.CurrentMediaPlayer.Control.IsFinished());
+
+        if (FullScreenVideoPlayer.CurrentMediaPlayer.Control.IsFinished())
+        {
+            StartCoroutine(Check());
+        }
+
+     }
+
+    IEnumerator Check() {
+      
+            if (!SentOnce)
+            {
                 SentOnce = true;
-                SendUPDData.instance.SentMessage();
+                yield return new WaitForSeconds(3f);
+                Debug.Log("doing");
                 DealWithUDPMessage.instance.GoingBack();
+                SendUPDData.instance.SentMessage();
+
             }
 
-        }
+        
     }
 
 

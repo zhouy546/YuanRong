@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SoundMangager : MonoBehaviour {
     public AudioSource audioSource;
+    public AudioSource BGM;
     public List<AudioClip> audioClips = new List<AudioClip>();
     public static SoundMangager instance;
 	// Use this for initialization
@@ -14,7 +15,15 @@ public class SoundMangager : MonoBehaviour {
 
         ValueSheet.NameAudio_keyValuePairs.Add("Through", audioClips[0]);
         ValueSheet.NameAudio_keyValuePairs.Add("Select", audioClips[1]);
+        ValueSheet.NameAudio_keyValuePairs.Add("BGM", audioClips[2]);
 
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T)) {
+            Select();
+        }
     }
 
 
@@ -33,5 +42,16 @@ public class SoundMangager : MonoBehaviour {
     {
         audioSource.clip = ValueSheet.NameAudio_keyValuePairs["Select"];
         audioSource.PlayOneShot(ValueSheet.NameAudio_keyValuePairs["Select"]);
+    }
+
+    public void PlayBGM() {
+
+        BGM.clip = ValueSheet.NameAudio_keyValuePairs["BGM"];
+        BGM.PlayOneShot(ValueSheet.NameAudio_keyValuePairs["BGM"]);
+    }
+
+    public void StopBGM()
+    {
+        BGM.Stop();
     }
 }

@@ -12,7 +12,8 @@ public class CreateUI : MonoBehaviour {
     public GameObject NodeR_Style00;
     public GameObject NodeL_Style01;
     public GameObject NodeR_Style01;
-    public GameObject SunNode;
+    public GameObject SunNode_Gongyi;
+    public GameObject SunNode_ECO;
 
 
     public static List<GameObject> NodeObject = new List<GameObject>();
@@ -55,8 +56,8 @@ public class CreateUI : MonoBehaviour {
         }
 
 
-        CreateSubNode(SunNode, new Vector3 (10,33,0), ECO_NodeObject, Parents[1], ValueSheet.ECO_nodeCtrs);
-        CreateSubNode(SunNode, new Vector3(10, 33, 0), Gongyi_NodeObject, Parents[2], ValueSheet.Gongyi_nodeCtrs);
+        CreateSubNode(SunNode_ECO, new Vector3 (10,33,0), ECO_NodeObject, Parents[1], ValueSheet.ECO_nodeCtrs);
+        CreateSubNode(SunNode_Gongyi, new Vector3(10, 33, 0), Gongyi_NodeObject, Parents[2], ValueSheet.Gongyi_nodeCtrs);
 
         //CreateDefault(ReadJson.ECO_NodeList.Count, NodeL_Default, NodeR_Default, ValueSheet.ID_ECO_Node_keyValuePairs, ECO_NodeObject, Parents[1], ValueSheet.ECO_nodeCtrs);
 
@@ -67,7 +68,7 @@ public class CreateUI : MonoBehaviour {
 
 
     void CreateSubNode(GameObject SubNodeGameobject, Vector3 pos,List<GameObject> nodeObj, GameObject parent, List <SubNodeCTR> nodeCtr) {
-        CreateObject<SubNodeCTR>(SunNode, 0, pos, nodeObj, parent, nodeCtr);
+        CreateObject<SubNodeCTR>(SubNodeGameobject, 0, pos, nodeObj, parent, nodeCtr);
     }
 
 

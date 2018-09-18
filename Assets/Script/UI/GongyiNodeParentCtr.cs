@@ -28,12 +28,12 @@ public class GongyiNodeParentCtr : CTR
             if (b)
             {
                 item.ShowMainPicture();
-                item.HideDescription();
+              //item.HideDescription();
 
             }
             else
             {
-                item.HideDescription();
+                //item.HideDescription();
                 item.HideMainPicture();
             }
         }

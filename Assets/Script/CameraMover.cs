@@ -72,7 +72,7 @@ public class CameraMover : MonoBehaviour {
 
     public void LookWellRight()
     {
-        LeanTween.rotateY(this.gameObject, 123f, .5f);
+        LeanTween.rotateY(this.gameObject, 112f, .5f);
     }
 
     public void LookWellMid()
