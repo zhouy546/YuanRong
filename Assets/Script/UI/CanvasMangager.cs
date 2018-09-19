@@ -24,8 +24,8 @@ public class CanvasMangager : MonoBehaviour {
 		
 	}
 
-    public void ONOFF(bool ONOFF,int titleNum) {
-        Debug.Log(ONOFF);
+    public void ONOFF(bool ONOFF,int titleNum,bool building) {
+        //Debug.Log(ONOFF);
         foreach (var item in Obj)
         {
             item.SetActive(ONOFF);
@@ -42,7 +42,7 @@ public class CanvasMangager : MonoBehaviour {
             }
         }
 
-        Building.SetActive(ONOFF);
+        Building.SetActive(building);
     }
 
     public IEnumerator Fade() {

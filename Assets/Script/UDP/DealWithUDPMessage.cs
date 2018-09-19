@@ -59,7 +59,7 @@ public class DealWithUDPMessage : MonoBehaviour {
                 SoundMangager.instance.Select();
                 CameraMover.instance.GoingInTheWell();
                 wellMesh.SetActive(true);
-                CanvasMangager.instance.ONOFF(false,-1);
+                CanvasMangager.instance.ONOFF(false,-1,false);
                 StartCoroutine(CanvasMangager.instance.Fade());
                 VideoCtr.instance.StopFullScreenVideoPlayer();
             }
@@ -121,7 +121,7 @@ public class DealWithUDPMessage : MonoBehaviour {
             else if (dataTest == "10024")
             {//公益右移动
                 foreach (var item in ValueSheet.Gongyi_nodeCtrs)
-                {
+                {               
                     item.imageClusterCtr.MoveRight();
                 }
             }
@@ -131,7 +131,7 @@ public class DealWithUDPMessage : MonoBehaviour {
                 SoundMangager.instance.Select();
                 logoWellCtr.TurnOnLogoWell();
                 VideoCtr.instance.StopFullScreenVideoPlayer();
-                CanvasMangager.instance.ONOFF(false,-1);
+                CanvasMangager.instance.ONOFF(false,-1,false);
                 StartCoroutine(CanvasMangager.instance.Fade());
             }
 
@@ -198,9 +198,9 @@ public class DealWithUDPMessage : MonoBehaviour {
     public void GoToOcean(List<SubNodeCTR> _nodeCtrs, CTR _ctr, int titleNum)
     {
         // ValueSheet.CurrentNodeCtr = _nodeCtrs;
-        ToOceanGeneral(new Vector3(0, 15.3f, 300f), new Vector3(0, 33.3f, -68.1f), true,  titleNum, _ctr);
+        ToOceanGeneral(new Vector3(0, 15.3f, 300f), new Vector3(0, 33.3f, -68.1f), true,  titleNum,false, _ctr);
 
-        _nodeCtrs[0].imageClusterCtr.MoveRight();
+        _nodeCtrs[0].imageClusterCtr.MoveLeft();
        // MainCtr.instance.TURN_ON_OFFChild_Sub(_ctr, true, _nodeCtrs);
 
     }
@@ -208,12 +208,12 @@ public class DealWithUDPMessage : MonoBehaviour {
 
     public void GoToOcean(List<NodeCtr> _nodeCtrs, DefaultNodeParentCtr _ctr,int titleNum) {
         // ValueSheet.CurrentNodeCtr = _nodeCtrs;
-        ToOceanGeneral(new Vector3(0, 15.3f, 300f), new Vector3(0, 15.3f, -30f),true, titleNum, _ctr);
+        ToOceanGeneral(new Vector3(0, 15.3f, 300f), new Vector3(0, 15.3f, -30f),true, titleNum,true, _ctr);
         // MainCtr.instance.TURN_ON_OFFChild_Default(_ctr, true, _nodeCtrs);
         BottomBarCtr.instance.UpdateBottomBar(CameraMover.instance.CurrentID + 1, ReadJson.NodeList.Count);
     }
 
-    void ToOceanGeneral(Vector3 pos,Vector3 _targetPos,bool isTurnOnSideImage,int Title,CTR ctr)
+    void ToOceanGeneral(Vector3 pos,Vector3 _targetPos,bool isTurnOnSideImage,int Title,bool building,CTR ctr)
     {
 
         logoWellCtr.TurnOffLogoWell();
@@ -222,7 +222,7 @@ public class DealWithUDPMessage : MonoBehaviour {
         VideoCtr.instance.StopFullScreenVideoPlayer();
         StartCoroutine(CameraMover.instance.initialization(pos, _targetPos));
 
-        CanvasMangager.instance.ONOFF(isTurnOnSideImage, Title);
+        CanvasMangager.instance.ONOFF(isTurnOnSideImage, Title, building);
         StartCoroutine(CanvasMangager.instance.Fade());
 
         SoundMangager.instance.StopBGM();
@@ -257,7 +257,7 @@ public class DealWithUDPMessage : MonoBehaviour {
         CameraMover.instance.HideAllDescription();
         //CameraMover.instance.HideMainPicture();
 
-        CanvasMangager.instance.ONOFF(false,-1);
+        CanvasMangager.instance.ONOFF(false,-1,false);
         StartCoroutine(CanvasMangager.instance.Fade());
     }
 

@@ -24,7 +24,7 @@ public class BottomBarCtr : MonoBehaviour {
     public void UpdateBottomBar(int currentNUM,int MaxNum) {
       
         float rate = (float) currentNUM / (float)MaxNum;
-        Debug.Log("currentNUM: " + currentNUM.ToString() + "   " + "MaxNum: " + MaxNum);
+        //Debug.Log("currentNUM: " + currentNUM.ToString() + "   " + "MaxNum: " + MaxNum);
 
        // Debug.Log(rate);
         float targetVal = MaxMoveDis * rate;

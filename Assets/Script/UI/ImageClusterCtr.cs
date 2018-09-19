@@ -65,8 +65,9 @@ public class ImageClusterCtr : MonoBehaviour {
             MoveRight();
         }
 	}
-
-   public void MoveRight() {
+    
+   public void MoveLeft()
+    {
         // Debug.Log("MoveRight");
         for (int i = 0; i < NumOfSection; i++)
         {
@@ -76,11 +77,12 @@ public class ImageClusterCtr : MonoBehaviour {
             MoveNodeZ(Num);
 
         }
-        Debug.Log(Num);
+       // Debug.Log(Num);
         BottomBarCtr.instance.UpdateBottomBar(Num+1, images.Count - NumOfSection - 1);
     }
 
-    public void MoveLeft() {
+    public void MoveRight()
+{
         for (int i = 0; i < NumOfSection; i++)
         {
             //Debug.Log("MoveLeft");
