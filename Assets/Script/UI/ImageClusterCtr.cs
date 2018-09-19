@@ -31,14 +31,14 @@ public class ImageClusterCtr : MonoBehaviour {
     public RightTrans rightTrans;
     public MidTrans midTrans;
 
-    public int NumOfSection = 4;
+    public int NumOfSection;
 
     private int num =0;
     public int Num {
         get { return num; }
         set
         {
-            if (value < 0 || value > images.Count- NumOfSection)
+            if (value < 0 || value > images.Count- NumOfSection-1)
             {
                 return;
             }
@@ -76,6 +76,8 @@ public class ImageClusterCtr : MonoBehaviour {
             MoveNodeZ(Num);
 
         }
+        Debug.Log(Num);
+        BottomBarCtr.instance.UpdateBottomBar(Num+1, images.Count - NumOfSection - 1);
     }
 
     public void MoveLeft() {
@@ -87,6 +89,9 @@ public class ImageClusterCtr : MonoBehaviour {
             RotateNode(Num);
             MoveNodeZ(Num);
         }
+       Debug.Log(Num);
+       // Debug.Log(images.Count - NumOfSection - 1);
+        BottomBarCtr.instance.UpdateBottomBar(Num + 1, images.Count - NumOfSection - 1);
     }
 
     private void Move(Vector3 pos, float time)

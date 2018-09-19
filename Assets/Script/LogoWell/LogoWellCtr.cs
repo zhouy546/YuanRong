@@ -7,7 +7,8 @@ public class LogoWellCtr : MonoBehaviour {
     List<int> intList = new List<int>();
     public int numPopOut=10;
 
-    public float ZmoveDis=-.3f;
+    private List<float> ZmoveDis = new List<float>();
+   
     // Use this for initialization
     void Start () {
         
@@ -39,24 +40,30 @@ public class LogoWellCtr : MonoBehaviour {
 
         List<int> currentintList = new List<int>();
         currentintList = CreateList();
+        int i = 0;
+
         foreach (var item in currentintList)
         {
+            
             yield return new  WaitForSeconds(.04f);
-            float z = meshRenderers[item].gameObject.transform.localPosition.z + ZmoveDis;
+            float z = meshRenderers[item].gameObject.transform.localPosition.z + ZmoveDis[i];
             LeanTween.moveLocalZ(meshRenderers[item].gameObject, z, time);
+            i++;
         }
 
         yield return new WaitForSeconds(time+ waitTime);
 
+        i = 0;
         foreach (var item in currentintList)
         {
             yield return new WaitForSeconds(.04f);
-            float z = meshRenderers[item].gameObject.transform.localPosition.z - ZmoveDis;
+            float z = meshRenderers[item].gameObject.transform.localPosition.z - ZmoveDis[i];
             LeanTween.moveLocalZ(meshRenderers[item].gameObject, z, time);
+            i++;
         }
         yield return new WaitForSeconds(time+ waitTime);
         currentintList.Clear();
-
+        
         StartCoroutine(Move(time, waitTime));
     }
 
@@ -64,17 +71,19 @@ public class LogoWellCtr : MonoBehaviour {
     bool keepgoing = true;
     List<int> CreateList() {
         intList.Clear();
+        ZmoveDis.Clear();
         for (int i = 0; i < numPopOut; i++)
         {    
         keepgoing = true;
         while (keepgoing) {
 
             int num = Random.Range(0, meshRenderers.Count - 1);
-
+            float dis = Random.Range(-.3f, .3f);
                 if (!intList.Contains(num))
                 {
                     keepgoing = false;
                     intList.Add(num);
+                    ZmoveDis.Add(dis);
                 }
             }
 

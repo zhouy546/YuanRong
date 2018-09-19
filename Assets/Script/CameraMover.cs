@@ -29,8 +29,8 @@ public class CameraMover : MonoBehaviour {
                     StartCoroutine(DesToDes());
                 }
 
-                BottomBarCtr.instance.ChangeDot(CurrentID);
-
+               // BottomBarCtr.instance.ChangeDot(CurrentID);
+            BottomBarCtr.instance.UpdateBottomBar(CurrentID + 1, ReadJson.NodeList.Count);
                // CanvasMangager.instance.Building.SetActive(false);
 
 
@@ -168,7 +168,6 @@ public class CameraMover : MonoBehaviour {
          //Debug.Log("初始化 海洋 目标位置" + tragetPos.ToString());
        
         StartCoroutine(MoveTo(tragetPos, 1f));
-        BottomBarCtr.instance.ChangeDot(CurrentID);
         //CanvasMangager.instance.Building.SetActive(true);
     }
 

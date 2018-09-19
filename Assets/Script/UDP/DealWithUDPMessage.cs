@@ -48,7 +48,7 @@ public class DealWithUDPMessage : MonoBehaviour {
             {
 
                // Debug.Log(ValueSheet.nodeCtrs.Count);
-                GoToOcean(ValueSheet.nodeCtrs, MainCtr.instance.defaultNodeParentCtr);
+                GoToOcean(ValueSheet.nodeCtrs, MainCtr.instance.defaultNodeParentCtr,0);
 
             }
 
@@ -59,7 +59,7 @@ public class DealWithUDPMessage : MonoBehaviour {
                 SoundMangager.instance.Select();
                 CameraMover.instance.GoingInTheWell();
                 wellMesh.SetActive(true);
-                CanvasMangager.instance.ONOFF(false);
+                CanvasMangager.instance.ONOFF(false,-1);
                 StartCoroutine(CanvasMangager.instance.Fade());
                 VideoCtr.instance.StopFullScreenVideoPlayer();
             }
@@ -81,7 +81,7 @@ public class DealWithUDPMessage : MonoBehaviour {
             }
             else if (dataTest == "10019")//商业文化
             {
-                GoToOcean(ValueSheet.ECO_nodeCtrs, MainCtr.instance.eCONodeParentCtr);
+                GoToOcean(ValueSheet.ECO_nodeCtrs, MainCtr.instance.eCONodeParentCtr,1);
 
             }
             else if (dataTest == "10013")
@@ -107,7 +107,7 @@ public class DealWithUDPMessage : MonoBehaviour {
             }
             else if (dataTest == "10021")//公益
             {
-                GoToOcean(ValueSheet.Gongyi_nodeCtrs, MainCtr.instance.gongyiNodeParentCtr);
+                GoToOcean(ValueSheet.Gongyi_nodeCtrs, MainCtr.instance.gongyiNodeParentCtr,2);
 
             }
             else if (dataTest == "10023")
@@ -131,7 +131,7 @@ public class DealWithUDPMessage : MonoBehaviour {
                 SoundMangager.instance.Select();
                 logoWellCtr.TurnOnLogoWell();
                 VideoCtr.instance.StopFullScreenVideoPlayer();
-                CanvasMangager.instance.ONOFF(false);
+                CanvasMangager.instance.ONOFF(false,-1);
                 StartCoroutine(CanvasMangager.instance.Fade());
             }
 
@@ -195,23 +195,25 @@ public class DealWithUDPMessage : MonoBehaviour {
 
 
 
-    public void GoToOcean(List<SubNodeCTR> _nodeCtrs, CTR _ctr)
+    public void GoToOcean(List<SubNodeCTR> _nodeCtrs, CTR _ctr, int titleNum)
     {
         // ValueSheet.CurrentNodeCtr = _nodeCtrs;
-        ToOceanGeneral(new Vector3(0, 15.3f, 300f), new Vector3(0, 33.3f, -68.1f), false,_ctr);
+        ToOceanGeneral(new Vector3(0, 15.3f, 300f), new Vector3(0, 33.3f, -68.1f), true,  titleNum, _ctr);
+
+        _nodeCtrs[0].imageClusterCtr.MoveRight();
        // MainCtr.instance.TURN_ON_OFFChild_Sub(_ctr, true, _nodeCtrs);
-       
+
     }
 
 
-    public void GoToOcean(List<NodeCtr> _nodeCtrs, DefaultNodeParentCtr _ctr) {
+    public void GoToOcean(List<NodeCtr> _nodeCtrs, DefaultNodeParentCtr _ctr,int titleNum) {
         // ValueSheet.CurrentNodeCtr = _nodeCtrs;
-        ToOceanGeneral(new Vector3(0, 15.3f, 300f), new Vector3(0, 15.3f, -30f),true,_ctr);
-       // MainCtr.instance.TURN_ON_OFFChild_Default(_ctr, true, _nodeCtrs);
-
+        ToOceanGeneral(new Vector3(0, 15.3f, 300f), new Vector3(0, 15.3f, -30f),true, titleNum, _ctr);
+        // MainCtr.instance.TURN_ON_OFFChild_Default(_ctr, true, _nodeCtrs);
+        BottomBarCtr.instance.UpdateBottomBar(CameraMover.instance.CurrentID + 1, ReadJson.NodeList.Count);
     }
 
-    void ToOceanGeneral(Vector3 pos,Vector3 _targetPos,bool isTurnOnSideImage,CTR ctr)
+    void ToOceanGeneral(Vector3 pos,Vector3 _targetPos,bool isTurnOnSideImage,int Title,CTR ctr)
     {
 
         logoWellCtr.TurnOffLogoWell();
@@ -220,11 +222,13 @@ public class DealWithUDPMessage : MonoBehaviour {
         VideoCtr.instance.StopFullScreenVideoPlayer();
         StartCoroutine(CameraMover.instance.initialization(pos, _targetPos));
 
-        CanvasMangager.instance.ONOFF(isTurnOnSideImage);
+        CanvasMangager.instance.ONOFF(isTurnOnSideImage, Title);
         StartCoroutine(CanvasMangager.instance.Fade());
 
         SoundMangager.instance.StopBGM();
         SoundMangager.instance.PlayBGM();
+      
+
     }
 
     public void GoingBack() {
@@ -253,7 +257,7 @@ public class DealWithUDPMessage : MonoBehaviour {
         CameraMover.instance.HideAllDescription();
         //CameraMover.instance.HideMainPicture();
 
-        CanvasMangager.instance.ONOFF(false);
+        CanvasMangager.instance.ONOFF(false,-1);
         StartCoroutine(CanvasMangager.instance.Fade());
     }
 

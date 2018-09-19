@@ -7,7 +7,9 @@ public class CanvasMangager : MonoBehaviour {
     public NImage BlackScreen;
     public static CanvasMangager instance;
     public List<GameObject> Obj = new List<GameObject>();
-        // Use this for initialization
+
+    public List<GameObject> Title = new List<GameObject>();
+    // Use this for initialization
     public void initialization() {
         if (instance == null) {
             instance = this;
@@ -22,12 +24,24 @@ public class CanvasMangager : MonoBehaviour {
 		
 	}
 
-    public void ONOFF(bool ONOFF) {
+    public void ONOFF(bool ONOFF,int titleNum) {
         Debug.Log(ONOFF);
         foreach (var item in Obj)
         {
             item.SetActive(ONOFF);
         }
+
+        for (int i = 0; i < Title.Count; i++)
+        {
+            if (i == titleNum)
+            {
+                Title[i].SetActive(true);
+            }
+            else {
+                Title[i].SetActive(false);
+            }
+        }
+
         Building.SetActive(ONOFF);
     }
 
