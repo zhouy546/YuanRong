@@ -78,7 +78,7 @@ public class LogoWellCtr : MonoBehaviour {
         while (keepgoing) {
 
             int num = Random.Range(0, meshRenderers.Count - 1);
-            float dis = Random.Range(-.3f, .3f);
+            float dis = Random.Range(-0.3f, 0f);
                 if (!intList.Contains(num))
                 {
                     keepgoing = false;
