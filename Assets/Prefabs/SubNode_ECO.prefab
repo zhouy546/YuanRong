@@ -352,7 +352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95821543662664192}
   displayUGUI: {fileID: 114513702622471982}
-  VideoName: "\u5706\u878D\u827A\u672F\u4E2D\u5FC3.mp4"
+  VideoName: "\u91D1\u9E21\u6E56\u53CC\u5E74\u5C55.mp4"
 --- !u!114 &114120632013306126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -441,7 +441,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 51fd3c5646c7fe047a738f29d15d8802, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 321d5760443e78940b02f27ecd278647, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -591,7 +591,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 95927052804521742}
   displayUGUI: {fileID: 114963722348098330}
-  VideoName: "\u91D1\u9E21\u6E56\u53CC\u5E74\u5C55.mp4"
+  VideoName: "\u5706\u878D\u827A\u672F\u4E2D\u5FC3.mp4"
 --- !u!114 &114914287038631978
 MonoBehaviour:
   m_ObjectHideFlags: 1
