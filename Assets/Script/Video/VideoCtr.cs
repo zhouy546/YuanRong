@@ -22,14 +22,15 @@ public class VideoCtr : MonoBehaviour {
     public void LoadVideoAndPlay(string path) {
 
         mediaPlayer.OpenVideoFromFile(MediaPlayer.FileLocation.RelativeToStreamingAssetsFolder, path, true);
-      
+        mediaPlayer.m_Control.SetLooping(false);
+
     }
 
     public void FixedUpdate()
     {
         // Debug.Log(FullScreenVideoPlayer.CurrentMediaPlayer.Control.IsFinished());
 
-        if (FullScreenVideoPlayer.CurrentMediaPlayer.Control.IsFinished())
+        if (FullScreenVideoPlayer.CurrentMediaPlayer.Control.IsFinished()&& mediaPlayer.m_VideoPath == "项目集锦.mp4")
         {
             StartCoroutine(Check());
         }
