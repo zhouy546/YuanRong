@@ -5,40 +5,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ImageClusterCtr : MonoBehaviour {
-    public List<Image> images = new List<Image>();
-    public List<NImage> Nimages = new List<NImage>();
-    [System.Serializable]
-    public struct LeftTrans {
-        public Vector3 TargetRotation;
-        public float Target_Z_Position;
-    }
+    public List<SubNodeGroupCtr> subNodeGroupCtr = new List<SubNodeGroupCtr>();
+    //public List<NImage> Nimages = new List<NImage>();
 
-    [System.Serializable]
-    public struct MidTrans
-    {
-        public Vector3 TargetRotation;
-        public float Target_Z_Position;
-    }
+    public float xPos;
 
-    [System.Serializable]
-    public struct RightTrans
-    {
-        public Vector3 TargetRotation;
-        public float Target_Z_Position;
-    }
-
-    public LeftTrans leftTrans;
-    public RightTrans rightTrans;
-    public MidTrans midTrans;
-
-    public int NumOfSection;
 
     private int num =0;
     public int Num {
         get { return num; }
         set
         {
-            if (value < 0 || value > images.Count- NumOfSection-1)
+            if (value < 0 || value > subNodeGroupCtr.Count - 1)
             {
                 return;
             }
@@ -47,54 +25,65 @@ public class ImageClusterCtr : MonoBehaviour {
         }
     }
 
-    public int MoveStep = 53;//cell size + spacing
+    
+
+
+    public float MoveStep = 192.3f;//cell size + spacing
     // Use this for initialization
     void Start () {
-        foreach (var item in images)
+
+        
+       // hideAll();
+
+    }
+
+    public void hideAll() {
+        foreach (var item in subNodeGroupCtr)
         {
-            item.GetComponent<NImage>().initialization();
-            Nimages.Add(item.GetComponent<NImage>());
+            item.Hide();
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.A)) {
-            MoveLeft();
-        } else if (Input.GetKeyDown(KeyCode.D)) {
-            MoveRight();
+    }
+
+    public void ShowAll() {
+        foreach (var item in subNodeGroupCtr)
+        {
+            item.Show();
         }
-	}
-    
-   public void MoveLeft()
+    }
+
+    public void Display(int num,List<GameObject> titleList) {
+        for (int i = 0; i < subNodeGroupCtr.Count; i++)
+        {
+            if (num == i)
+            {
+                subNodeGroupCtr[i].Show();
+            }
+            else {
+                subNodeGroupCtr[i].Hide();
+            }
+        }
+
+        BottomBarCtr.instance.UpdateBottomBar(num + 1, subNodeGroupCtr.Count);
+
+        CanvasMangager.instance.ONOFF(true, num, false, titleList);
+    }
+
+
+   public void GoToTarget(int num,List<GameObject> list)
     {
-        // Debug.Log("MoveRight");
-        for (int i = 0; i < NumOfSection; i++)
-        {
-            Num--;
-            Move(MovePos(Num), .5f);
-            RotateNode(Num);
-            MoveNodeZ(Num);
 
-        }
-       // Debug.Log(Num);
-        BottomBarCtr.instance.UpdateBottomBar(Num+1, images.Count - NumOfSection - 1);
+        Vector3 targetPos = MovePos(num);
+        //Debug.Log(num);
+
+        Move(targetPos, .5f);
+
+        Display(num, list);
+
+        BottomBarCtr.instance.UpdateBottomBar(num+1, subNodeGroupCtr.Count);
+
     }
 
-    public void MoveRight()
-{
-        for (int i = 0; i < NumOfSection; i++)
-        {
-            //Debug.Log("MoveLeft");
-            Num++;
-            Move(MovePos(Num), .5f);
-            RotateNode(Num);
-            MoveNodeZ(Num);
-        }
-       Debug.Log(Num);
-       // Debug.Log(images.Count - NumOfSection - 1);
-        BottomBarCtr.instance.UpdateBottomBar(Num + 1, images.Count - NumOfSection - 1);
-    }
+
 
     private void Move(Vector3 pos, float time)
     {
@@ -104,27 +93,9 @@ public class ImageClusterCtr : MonoBehaviour {
 
     }
 
-    private void RotateNode(int num) {
-        
-        LeanTween.rotateLocal(images[num].gameObject, leftTrans.TargetRotation, .2f);
-      
-        LeanTween.rotateLocal(images[num+1].gameObject, midTrans.TargetRotation, .2f);
-        
-        LeanTween.rotateLocal(images[num+2].gameObject, rightTrans.TargetRotation, .2f);
-        
-        LeanTween.rotateLocal(images[num + 3].gameObject, midTrans.TargetRotation, .2f);
 
-    }
-
-    private void MoveNodeZ(int num)
+    Vector3 MovePos(int num)
     {
-        LeanTween.moveLocalZ(images[num].gameObject, leftTrans.Target_Z_Position, .2f);
-        LeanTween.moveLocalZ(images[num+1].gameObject, midTrans.Target_Z_Position, .2f);
-        LeanTween.moveLocalZ(images[num+2].gameObject, rightTrans.Target_Z_Position, .2f);
-        LeanTween.moveLocalZ(images[num+3].gameObject, midTrans.Target_Z_Position, .2f);
-    }
-
-    Vector3 MovePos(int num) {
-        return new Vector3( -117- num * MoveStep , transform.localPosition.y, transform.localPosition.z);
+        return new Vector3(xPos + num * MoveStep, transform.localPosition.y, transform.localPosition.z);
     }
 }

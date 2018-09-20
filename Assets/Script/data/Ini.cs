@@ -70,6 +70,7 @@ public class Ini : MonoBehaviour {
         for (int i = 0; i < CreateUI.NodeObject.Count; i++)
         {
             NodeCtr nodeCtr = CreateUI.NodeObject[i].GetComponent<NodeCtr>();
+            //Debug.Log(MainUIsprites.Count.ToString()+"____"+DescriptionBG.Count.ToString());
             nodeCtr.initialization(MainUIsprites[i], DescriptionBG[i]);
         }
     }

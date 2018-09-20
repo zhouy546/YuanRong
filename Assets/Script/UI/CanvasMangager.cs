@@ -8,7 +8,10 @@ public class CanvasMangager : MonoBehaviour {
     public static CanvasMangager instance;
     public List<GameObject> Obj = new List<GameObject>();
 
-    public List<GameObject> Title = new List<GameObject>();
+    public List<GameObject> MainTitle = new List<GameObject>();
+
+    public List<GameObject> SubNodeTitle_Eco = new List<GameObject>();
+    public List<GameObject> SubNodeTitle_GongYi = new List<GameObject>();
     // Use this for initialization
     public void initialization() {
         if (instance == null) {
@@ -24,21 +27,28 @@ public class CanvasMangager : MonoBehaviour {
 		
 	}
 
-    public void ONOFF(bool ONOFF,int titleNum,bool building) {
+    public void TurnOffAllTitle() {
+      ONOFF(false, -1, false, MainTitle);
+        ONOFF(false, -1, false, SubNodeTitle_Eco);
+        ONOFF(false, -1, false, SubNodeTitle_GongYi);
+    }
+
+
+    public void ONOFF(bool ONOFF,int titleNum,bool building,List<GameObject> TitleList) {
         //Debug.Log(ONOFF);
         foreach (var item in Obj)
         {
             item.SetActive(ONOFF);
         }
 
-        for (int i = 0; i < Title.Count; i++)
+        for (int i = 0; i < TitleList.Count; i++)
         {
             if (i == titleNum)
             {
-                Title[i].SetActive(true);
+                TitleList[i].SetActive(true);
             }
             else {
-                Title[i].SetActive(false);
+                TitleList[i].SetActive(false);
             }
         }
 

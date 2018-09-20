@@ -125,7 +125,7 @@ public class CameraMover : MonoBehaviour {
     }
 
     IEnumerator ToPosition() {
-        yield return StartCoroutine(MoveTo(tragetPos, Mathf.Abs(currentID - perviouseID) * .2f));
+        yield return StartCoroutine(MoveTo(tragetPos, Mathf.Abs(currentID - perviouseID) * .4f));
 
     }
 
@@ -233,6 +233,8 @@ public class CameraMover : MonoBehaviour {
         //ShowDescription();
 
         ValueSheet.IsInMainMenu = false;
+
+        SoundMangager.instance.Recycle();
      yield return  StartCoroutine(MoveTo(tragetPos,.5f));
     }
 

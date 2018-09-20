@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Video_DescriptionStyle01 : Video_DescriptionCtr
 {
-    public List<Sprite> LeftSpriteList = new List<Sprite>();
-    public List<Sprite> RightSpriteList = new List<Sprite>();
+    public List<Sprite> SpriteList = new List<Sprite>();
+    
 
 
     void Start()
@@ -26,13 +26,9 @@ public class Video_DescriptionStyle01 : Video_DescriptionCtr
     {
         for (int i = 0; i < sprites.Count; i++)
         {
-            if (i % 2 == 0)
-            {
-                LeftSpriteList.Add(sprites[i]);
-            }
-            else {
-                RightSpriteList.Add(sprites[i]);
-            }
+
+            SpriteList.Add(sprites[i]);
+
         }
 
         //StartCoroutine(AnimationLoop());
@@ -48,12 +44,11 @@ public class Video_DescriptionStyle01 : Video_DescriptionCtr
     }
 
     IEnumerator AnimationLoop() {
-        for (int i = 0; i < LeftSpriteList.Count; i++)
+        for (int i = 0; i < SpriteList.Count; i++)
         {
            
-            nImagesDescription[0].image.sprite = LeftSpriteList[i];
-            nImagesDescription[1].image.sprite = RightSpriteList[i];
-
+            nImagesDescription[0].image.sprite = SpriteList[i];
+          
             yield return new WaitForSeconds(4f);
         }
 

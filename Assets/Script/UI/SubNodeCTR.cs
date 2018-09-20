@@ -18,19 +18,20 @@ public class SubNodeCTR : NodeCtrBase
     public override void ShowMainPicture()
     {
         base.ShowMainPicture();
-        foreach (var item in imageClusterCtr.Nimages)
-        {
-            item.ShowAll();
-        }
-      
+        //foreach (var item in imageClusterCtr.Nimages)
+        //{
+        //    item.ShowAll();
+        //}
+
+        //imageClusterCtr.Display(0);
+
+
     }
 
     public override void HideMainPicture()
     {
-        foreach (var item in imageClusterCtr.Nimages)
-        {
-            item.HideAll();
-        }
+        imageClusterCtr.hideAll();
+
         base.HideMainPicture();
     }
 }

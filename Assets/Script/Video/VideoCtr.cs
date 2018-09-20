@@ -16,13 +16,13 @@ public class VideoCtr : MonoBehaviour {
             instance = this;
         }
         mediaPlayer = this.GetComponent<MediaPlayer>();
-
+       
     }
 
-    public void LoadVideoAndPlay(string path) {
+    public void LoadVideoAndPlay(string path, bool isLoop = false) {
 
         mediaPlayer.OpenVideoFromFile(MediaPlayer.FileLocation.RelativeToStreamingAssetsFolder, path, true);
-        mediaPlayer.m_Control.SetLooping(false);
+        mediaPlayer.m_Control.SetLooping(isLoop);
 
     }
 
@@ -57,9 +57,10 @@ public class VideoCtr : MonoBehaviour {
         LeanTween.value(1f, 0f, .4f).setOnUpdate(delegate (float value){
             FullScreenVideoPlayer.color = new Color(255f, 255f, 255f, value);
         }).setOnComplete(delegate() {
-            stopVideo();
+            //
         });
-         
+        stopVideo();
+
     }
 
     public void PlayFullScreenVideoPlayer(string path, bool isLoop = true) {

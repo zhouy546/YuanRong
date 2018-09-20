@@ -26,38 +26,34 @@ public class CreateUI : MonoBehaviour {
       
         for (int i = 0; i < ReadJson.NodeList.Count; i++)
         {
+           // Debug.Log(i);
             if (i % 2 == 0)
             {
                 Vector3 pos = new Vector3(-30,16.3f, i * ValueSheet.NodeDistance);
                 
-                if (i == 10)
-                {
-                    CreateObject<NodeCtr>(NodeL_Style01, i, pos, NodeObject, Parents[0], ValueSheet.nodeCtrs);
-                }
-                else {
+
                     CreateObject<NodeCtr>(NodeL_Default, i, pos, NodeObject, Parents[0], ValueSheet.nodeCtrs);
-                }
-               
+                               
             }
             else {
                 
                 Vector3 pos = new Vector3(30, 16.3f, i * ValueSheet.NodeDistance);
-               //Debug.Log("RIFHT");
-                if (i == 9)
-                {
-                    CreateObject<NodeCtr>(NodeR_Style00, i, pos, NodeObject, Parents[0], ValueSheet.nodeCtrs);
-                    
-                }
-                else {
+
+            //if (i == 11)
+            //    {
+            //    CreateObject<NodeCtr>(NodeR_Style01, i, pos, NodeObject, Parents[0], ValueSheet.nodeCtrs);
+            //    }
+            //    else
+            //    {
                     CreateObject<NodeCtr>(NodeR_Default, i, pos, NodeObject, Parents[0], ValueSheet.nodeCtrs);
-                } 
+               // }
             }
             ValueSheet.ID_Node_keyValuePairs.Add(ReadJson.NodeList[i].ID, NodeObject[i]);
         }
 
 
         CreateSubNode(SunNode_ECO, new Vector3 (10,33,0), ECO_NodeObject, Parents[1], ValueSheet.ECO_nodeCtrs);
-        CreateSubNode(SunNode_Gongyi, new Vector3(10, 33, 0), Gongyi_NodeObject, Parents[2], ValueSheet.Gongyi_nodeCtrs);
+      CreateSubNode(SunNode_Gongyi, new Vector3(10, 33, 0), Gongyi_NodeObject, Parents[2], ValueSheet.Gongyi_nodeCtrs);
 
         //CreateDefault(ReadJson.ECO_NodeList.Count, NodeL_Default, NodeR_Default, ValueSheet.ID_ECO_Node_keyValuePairs, ECO_NodeObject, Parents[1], ValueSheet.ECO_nodeCtrs);
 

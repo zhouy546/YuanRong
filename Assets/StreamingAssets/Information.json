@@ -70,16 +70,49 @@
         },  {
             "id": 9,
 
-			"BigTitle": "酒店",
-            "VideoPath":"09酒店.mp4"
+			"BigTitle": "酒店1",
+            "VideoPath":"10酒店-南通.mp4"
             
-        },  {
+        }, 
+        
+         {
             "id": 10,
 
+			"BigTitle": "酒店2",
+            "VideoPath":"11酒店-无锡.mp4"
+            
+        },
+        
+        {
+            "id": 11,
+
 			"BigTitle": "轻资产服务",
-            "VideoPath":"10轻资产服务.mp4"
+            "VideoPath":"12轻资产-1.mp4"
+            
+        },
+                {
+            "id": 12,
+
+			"BigTitle": "轻资产服务",
+            "VideoPath":"12轻资产-2.mp4"
+            
+        },        {
+            "id": 13,
+
+			"BigTitle": "轻资产服务",
+            "VideoPath":"12轻资产-3.mp4"
+            
+        },        
+        {
+            "id": 14,
+
+			"BigTitle": "轻资产服务",
+            "VideoPath":"12轻资产-4.mp4"
             
         }
+
+
+
 
 
 	],

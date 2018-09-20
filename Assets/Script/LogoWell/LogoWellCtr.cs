@@ -8,10 +8,13 @@ public class LogoWellCtr : MonoBehaviour {
     public int numPopOut=10;
 
     private List<float> ZmoveDis = new List<float>();
+
+    public List<Vector3> TargetPositions = new List<Vector3>();
    
     // Use this for initialization
     void Start () {
         
+        SetTargetPostition();
     }
 	
 	// Update is called once per frame
@@ -20,7 +23,25 @@ public class LogoWellCtr : MonoBehaviour {
 	}
 
 
+
+    public void SetTargetPostition() {
+
+        foreach (var item in meshRenderers)
+        {
+            item.transform.localPosition = new Vector3(item.transform.localPosition.x, item.transform.localPosition.y + 15, item.transform.localPosition.z);
+        }
+  
+    }
+
+
+
+
     public void TurnOnLogoWell() {
+        StopAllCoroutines();
+        foreach (var item in meshRenderers)
+        {
+            item.transform.localPosition = new Vector3(item.transform.localPosition.x, item.transform.localPosition.y, -62.25f);
+        }
         this.gameObject.SetActive(true);
         StartCoroutine(Move(1f, .4f));
         Camera.main.transform.position = new Vector3(0f, 33.3f, -68.1f);
