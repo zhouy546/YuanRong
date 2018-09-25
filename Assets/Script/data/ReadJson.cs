@@ -74,6 +74,14 @@ public class ReadJson : MonoBehaviour {
             SetupNodeList(i, ref Gongyi_NodeList);
 
         }
+
+
+        for (int i = 0; i < itemDate["Setup"].Count; i++)
+        {
+            ValueSheet.BGMVolume = float.Parse(itemDate["Setup"][i]["BGMVolume"].ToString());//get id;        
+        }
+
+
         //setupUI(bigTitle);
 
     }

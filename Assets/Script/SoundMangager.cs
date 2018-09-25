@@ -24,6 +24,7 @@ public class SoundMangager : MonoBehaviour {
         ValueSheet.NameAudio_keyValuePairs.Add("Select", audioClips[1]);
         ValueSheet.NameAudio_keyValuePairs.Add("BGM", audioClips[2]);
         ValueSheet.NameAudio_keyValuePairs.Add("Recycle", audioClips[3]);
+        SetUpbgmVolume(ValueSheet.BGMVolume);
 
     }
 
@@ -32,6 +33,9 @@ public class SoundMangager : MonoBehaviour {
 
     }
 
+    public void SetUpbgmVolume(float Volume) {
+        BGM.volume = Volume;
+    }
 
     public void SetMainVideoVolume(bool ismute) {
         mediaPlayer.m_Control.MuteAudio(ismute);

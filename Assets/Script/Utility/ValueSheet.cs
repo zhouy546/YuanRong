@@ -13,6 +13,9 @@ public class ValueSheet : MonoBehaviour {
 
     public static string Co = "合作伙伴.mp4";
 
+    public static float BGMVolume = 0;
+
+
 
     public static float NodeDistance = 30f;
 

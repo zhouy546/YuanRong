@@ -3765,7 +3765,7 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: acc07eb1e0549ac419f44c929855417f, type: 3}
   - {fileID: 8300000, guid: 05c2cd65ef9e47d419cbf5afa46658b5, type: 3}
-  - {fileID: 8300000, guid: cdfe8006913647e4b971a1bae9aae462, type: 3}
+  - {fileID: 8300000, guid: 71d4694de3904694f961a23f2f2978f4, type: 3}
   - {fileID: 8300000, guid: 8a011a53f5e6247409fac7972d45891e, type: 3}
   mediaPlayer: {fileID: 815372645}
   currentBGM: 
@@ -9557,7 +9557,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: cdfe8006913647e4b971a1bae9aae462, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 71d4694de3904694f961a23f2f2978f4, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 1

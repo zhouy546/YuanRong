@@ -135,6 +135,13 @@
             "VideoPath":"00李公堤.mp4"
         }
 
+    ],
+    "Setup" : [
+        {
+            "BGMVolume" : 0.1
+            
+        } 
+        
     ]
 
 }
