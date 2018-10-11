@@ -58,6 +58,9 @@ public class DealWithUDPMessage : MonoBehaviour {
                 MainCtr.instance.TurnOffAll();
 
                 SoundMangager.instance.Select();
+
+                SoundMangager.instance.StopBGM();
+                SoundMangager.instance.PlayBGM("BGM");
                 CameraMover.instance.GoingInTheWell();
                 wellMesh.SetActive(true);
                 CanvasMangager.instance.TurnOffAllTitle();
@@ -304,6 +307,15 @@ public class DealWithUDPMessage : MonoBehaviour {
 
 
     public void ReplaceFullScreenVideo(string videoName,bool isLoop = true) {
+        Debug.Log(SoundMangager.instance.isMute);
+        if (SoundMangager.instance.isMute)
+        {
+            SoundMangager.instance.SetMainVideoVolume(true);
+        }
+        else {
+            SoundMangager.instance.SetMainVideoVolume(false);
+        }
+
         MainCtr.instance.TurnOffAll();
         wellMesh.SetActive(false);
         logoWellCtr.TurnOffLogoWell();

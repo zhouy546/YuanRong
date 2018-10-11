@@ -13,7 +13,7 @@ public class SoundMangager : MonoBehaviour {
 
     public string currentBGM = "";
 
-    bool isMute;
+    public bool isMute;
 	// Use this for initialization
 	public void initialization() {
         if (instance == null) {
@@ -38,7 +38,9 @@ public class SoundMangager : MonoBehaviour {
     }
 
     public void SetMainVideoVolume(bool ismute) {
+        Debug.Log("set video volume" + ismute);
         mediaPlayer.m_Control.MuteAudio(ismute);
+        mediaPlayer.m_Muted = ismute;
         isMute = ismute;
     }
 
@@ -70,12 +72,13 @@ public class SoundMangager : MonoBehaviour {
     }
 
     public void PlayBGM(string bgmStr) {
-
+        currentBGM = bgmStr;
+        Debug.Log("ismuite: "+ isMute+"____str:"+bgmStr);
         if (bgmStr != ""&& isMute == false) {
-            currentBGM = bgmStr;
+          
             BGM.clip = ValueSheet.NameAudio_keyValuePairs[bgmStr];
             //BGM.PlayOneShot(ValueSheet.NameAudio_keyValuePairs[bgmStr]);
-
+            Debug.Log("doing bgm");
             BGM.Play();
             BGM.loop = true;
         }
